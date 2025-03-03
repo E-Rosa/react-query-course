@@ -12,7 +12,7 @@
   "dependencies": {
     "@eliasrrosa/mock-fetch": "^0.0.5",
     "@eliasrrosa/react-ui": "^2.1.16",
-    "@eliasrrosa/vinmin": "^1.0.1",
+    "@eliasrrosa/vinmin": "^1.0.3",
     "@tailwindcss/vite": "^4.0.0",
     "@tanstack/react-query": "^5.66.0",
     "@tanstack/react-query-devtools": "^5.66.0",
