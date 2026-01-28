@@ -2,7 +2,7 @@ import { Book } from "../../components/readBooks/Book";
 
 export const readBooks: Book[] = [
   {
-    id: 1,
+    id: "1",
     title: "To Kill a Mockingbird",
     author: "Harper Lee",
     rating: 5,
@@ -12,7 +12,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 2,
+    id: "2",
     title: "Pride and Prejudice",
     author: "Jane Austen",
     rating: 5,
@@ -22,7 +22,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 3,
+    id: "3",
     title: "1984",
     author: "George Orwell",
     rating: 5,
@@ -32,7 +32,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 4,
+    id: "4",
     title: "The Great Gatsby",
     author: "F. Scott Fitzgerald",
     rating: 4,
@@ -42,7 +42,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 5,
+    id: "5",
     title: "Moby-Dick",
     author: "Herman Melville",
     rating: 4,
@@ -52,7 +52,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 6,
+    id: "6",
     title: "Jane Eyre",
     author: "Charlotte Brontë",
     rating: 5,
@@ -62,7 +62,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 7,
+    id: "7",
     title: "The Catcher in the Rye",
     author: "J.D. Salinger",
     rating: 4,
@@ -72,7 +72,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 8,
+    id: "8",
     title: "The Hobbit",
     author: "J.R.R. Tolkien",
     rating: 5,
@@ -82,7 +82,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 9,
+    id: "9",
     title: "Fahrenheit 451",
     author: "Ray Bradbury",
     rating: 5,
@@ -92,7 +92,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 10,
+    id: "10",
     title: "The Adventures of Huckleberry Finn",
     author: "Mark Twain",
     rating: 4,
@@ -102,7 +102,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 11,
+    id: "11",
     title: "The Lord of the Rings",
     author: "J.R.R. Tolkien",
     rating: 5,
@@ -112,7 +112,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 12,
+    id: "12",
     title: "The Picture of Dorian Gray",
     author: "Oscar Wilde",
     rating: 4,
@@ -122,7 +122,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 13,
+    id: "13",
     title: "Brave New World",
     author: "Aldous Huxley",
     rating: 4,
@@ -132,7 +132,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 14,
+    id: "14",
     title: "Wuthering Heights",
     author: "Emily Brontë",
     rating: 5,
@@ -142,7 +142,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 15,
+    id: "15",
     title: "The Grapes of Wrath",
     author: "John Steinbeck",
     rating: 5,
@@ -152,7 +152,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 16,
+    id: "16",
     title: "Crime and Punishment",
     author: "Fyodor Dostoevsky",
     rating: 5,
@@ -162,7 +162,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 17,
+    id: "17",
     title: "The Brothers Karamazov",
     author: "Fyodor Dostoevsky",
     rating: 5,
@@ -172,7 +172,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 18,
+    id: "18",
     title: "Anna Karenina",
     author: "Leo Tolstoy",
     rating: 5,
@@ -182,7 +182,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 19,
+    id: "19",
     title: "Madame Bovary",
     author: "Gustave Flaubert",
     rating: 4,
@@ -192,7 +192,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 20,
+    id: "20",
     title: "The Road",
     author: "Cormac McCarthy",
     rating: 5,
@@ -202,7 +202,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 21,
+    id: "21",
     title: "The Old Man and the Sea",
     author: "Ernest Hemingway",
     rating: 4,
@@ -212,7 +212,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 22,
+    id: "22",
     title: "The Alchemist",
     author: "Paulo Coelho",
     rating: 4,
@@ -222,7 +222,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 23,
+    id: "23",
     title: "The Handmaid's Tale",
     author: "Margaret Atwood",
     rating: 5,
@@ -232,7 +232,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 24,
+    id: "24",
     title: "The Catch-22",
     author: "Joseph Heller",
     rating: 5,
@@ -242,7 +242,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 25,
+    id: "25",
     title: "The Kite Runner",
     author: "Khaled Hosseini",
     rating: 5,
@@ -252,7 +252,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 26,
+    id: "26",
     title: "Life of Pi",
     author: "Yann Martel",
     rating: 4,
@@ -262,7 +262,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 27,
+    id: "27",
     title: "The Book Thief",
     author: "Markus Zusak",
     rating: 5,
@@ -272,7 +272,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 28,
+    id: "28",
     title: "The Secret Life of Bees",
     author: "Sue Monk Kidd",
     rating: 4,
@@ -282,7 +282,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 29,
+    id: "29",
     title: "The Giver",
     author: "Lois Lowry",
     rating: 4,
@@ -292,7 +292,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 30,
+    id: "30",
     title: "The Shining",
     author: "Stephen King",
     rating: 5,
@@ -302,7 +302,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 31,
+    id: "31",
     title: "The Fault in Our Stars",
     author: "John Green",
     rating: 4,
@@ -312,7 +312,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 32,
+    id: "32",
     title: "The Hunger Games",
     author: "Suzanne Collins",
     rating: 4,
@@ -322,7 +322,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 33,
+    id: "33",
     title: "The Girl with the Dragon Tattoo",
     author: "Stieg Larsson",
     rating: 4,
@@ -332,7 +332,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 34,
+    id: "34",
     title: "The Da Vinci Code",
     author: "Dan Brown",
     rating: 4,
@@ -342,7 +342,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 35,
+    id: "35",
     title: "The Little Prince",
     author: "Antoine de Saint-Exupéry",
     rating: 5,
@@ -352,7 +352,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 36,
+    id: "36",
     title: "The Hitchhiker's Guide to the Galaxy",
     author: "Douglas Adams",
     rating: 5,
@@ -362,7 +362,7 @@ export const readBooks: Book[] = [
     ],
   },
   {
-    id: 37,
+    id: "37",
     title: "The Time Traveler's Wife",
     author: "Audrey Niffenegger",
     rating: 4,

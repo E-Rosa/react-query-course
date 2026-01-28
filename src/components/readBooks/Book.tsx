@@ -10,7 +10,7 @@ import { useGetBookTags } from "../../hooks/bookHooks";
 import { Tag } from "../books/Tag";
 
 export type Book = {
-  id: number;
+  id: string;
   title: string;
   author: string;
   rating: number;

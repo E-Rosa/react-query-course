@@ -19,6 +19,7 @@ function CreateBookForm(props: CreateBookFormProps) {
   const [author, setAuthor] = useState<string>();
   const [quotes, setQuotes] = useState<string>();
   const [rating, setRating] = useState<number>(0);
+  const [tags, setTags] = useState<string>();
   const quotesArray = quotes ? quotes.split(",") : undefined;
   const feedback = useFeedback();
   const queryClient = useQueryClient();
@@ -39,7 +40,7 @@ function CreateBookForm(props: CreateBookFormProps) {
         Add a book to the shelf.
       </VinminH2>
       <VinminInput
-        label="Book title"
+        label="Title"
         placeholder="eg: The Metamorphosis"
         inputClassName="w-full"
         attributes={{
@@ -49,7 +50,7 @@ function CreateBookForm(props: CreateBookFormProps) {
         }}
       />
       <VinminInput
-        label="Book author"
+        label="Author"
         placeholder="eg: Franz Kafka"
         inputClassName="w-full"
         attributes={{
@@ -67,6 +68,16 @@ function CreateBookForm(props: CreateBookFormProps) {
             setQuotes(ev.currentTarget.value);
           },
         }}
+      />
+      <VinminInput
+        inputClassName="w-full"
+        label="Tags"
+        attributes={{
+          onChange: (ev) => {
+            setTags(ev.currentTarget.value);
+          },
+        }}
+        placeholder="Book tags, separated by commas"
       />
       <div className="flex items-center gap-4 p-4 border border-black">
         <VinminSpan>Rating</VinminSpan>
@@ -97,6 +108,7 @@ function CreateBookForm(props: CreateBookFormProps) {
                   rating: rating,
                   quotes: quotesArray,
                 },
+                tags: tags ? tags.split(",") : [],
               });
             },
           }}

@@ -34,7 +34,7 @@ export function useGetReadBooksPaginated(opts: GetBooksOptions) {
         .fill(undefined)
         .map((_, i) => {
           return {
-            id: i,
+            id: `${i}`,
             author: "Loading...",
             title: "Loading...",
             rating: 0,
@@ -75,7 +75,7 @@ export function useGetReadBooksStacked(opts: GetBooksOptions) {
             .fill(undefined)
             .map((_, i) => {
               return {
-                id: i,
+                id: `${i}`,
                 author: "Loading...",
                 title: "Loading...",
                 rating: 0,
@@ -141,9 +141,9 @@ export function useGetRandomQuote() {
   });
 }
 
-export function useGetBookTags(opts: { bookId: number, enabled?: boolean; }) {
+export function useGetBookTags(opts: { bookId: string; enabled?: boolean }) {
   return useQuery({
-    queryKey: [`getBooksTags-${opts.bookId}`],
+    queryKey: ["getBooksTags", opts.bookId],
     queryFn: async () => {
       const res = await fetchGetBookTags({ bookId: opts.bookId });
       if (res.status == 404) {
@@ -154,6 +154,6 @@ export function useGetBookTags(opts: { bookId: number, enabled?: boolean; }) {
       }
       return res.json() as GetBookTagsResponseBody;
     },
-    enabled: opts.enabled
+    enabled: opts.enabled,
   });
 }

@@ -3,6 +3,7 @@ import { LocalStorage } from "../storage/localStorage";
 import { GetBooksResponse } from "../hooks/bookHooks";
 import { MockBody, MockFetch, MockResponse } from "@eliasrrosa/mock-fetch";
 import { BookTags } from "../storage/data/tags";
+import { v4 } from "uuid";
 
 export type GetBooksOptions = {
   offset: number;
@@ -52,7 +53,8 @@ export async function fetchGetReadBooks(
 }
 
 export type CreateBookRequestBody = {
-  book: Book;
+  book: Omit<Book, "id">;
+  tags: string[];
 };
 
 export async function fetchPostReadBook(
@@ -61,20 +63,41 @@ export async function fetchPostReadBook(
   return MockFetch.fetch(() => {
     const storedBooksJSON = LocalStorage.getReadBooks();
 
+    const newBookId = v4();
+
+    const book: Book = {
+      ...opts.book,
+      id: newBookId,
+    };
+
+    if (!storedBooksJSON) {
+      LocalStorage.createReadBooks(JSON.stringify(book));
+    }
+
     if (storedBooksJSON) {
       const storedBooks = JSON.parse(storedBooksJSON) as Book[];
 
-      const updatedBooks = [opts.book].concat(storedBooks);
+      const updatedBooks = [book].concat(storedBooks);
 
       LocalStorage.createReadBooks(JSON.stringify(updatedBooks));
-
-      return new MockResponse({
-        body: new MockBody(undefined),
-        status: 200,
-      });
     }
 
-    LocalStorage.createReadBooks(JSON.stringify(opts.book));
+    const tag = { tags: opts.tags, bookId: newBookId };
+
+    const storedTagsJSON = LocalStorage.getTags();
+
+    if (!storedTagsJSON) {
+      LocalStorage.createTags(JSON.stringify(tag));
+    }
+
+    if (storedTagsJSON) {
+      const storedTags = JSON.parse(storedTagsJSON) as BookTags[];
+
+      const updatedTags = [tag].concat(storedTags);
+
+      LocalStorage.createTags(JSON.stringify(updatedTags));
+    }
+
     return new MockResponse({
       body: new MockBody(undefined),
       status: 200,
@@ -131,7 +154,7 @@ export async function fetchGetRandomQuote(): Promise<MockResponse> {
 }
 export type GetBookTagsResponseBody = BookTags;
 
-export function fetchGetBookTags(opts: { bookId: number }) {
+export function fetchGetBookTags(opts: { bookId: string }) {
   return MockFetch.fetch(() => {
     const JSONbookTagsArray = LocalStorage.getTags();
 
