@@ -11,7 +11,7 @@ import {
   fetchPostReadBook,
   fetchRandomQuote,
   GetRandomQuoteResponseBody,
-} from "../../shared-assets/repo/bookRepo";
+} from "../repo/bookRepo";
 import { Book } from "../components/readBooks/Book";
 
 export type GetBooksResponse = {

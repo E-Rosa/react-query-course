@@ -1,4 +1,4 @@
-import { Book } from "../../../complete-app/components/readBooks/Book";
+import { Book } from "../../components/readBooks/Book";
 
 export const readBooks: Book[] = [
   {
@@ -178,8 +178,8 @@ export const readBooks: Book[] = [
     rating: 5,
     quotes: [
       "You forget what you want to remember, and you remember what you want to forget.",
-      "Nobody wants to be here and nobody wants to leave."
-    ]
+      "Nobody wants to be here and nobody wants to leave.",
+    ],
   },
   {
     title: "The Old Man and the Sea",
@@ -187,8 +187,8 @@ export const readBooks: Book[] = [
     rating: 4,
     quotes: [
       "But man is not made for defeat. A man can be destroyed but not defeated.",
-      "Now is no time to think of what you do not have. Think of what you can do with that there is."
-    ]
+      "Now is no time to think of what you do not have. Think of what you can do with that there is.",
+    ],
   },
   {
     title: "The Alchemist",
@@ -196,8 +196,8 @@ export const readBooks: Book[] = [
     rating: 4,
     quotes: [
       "And, when you want something, all the universe conspires in helping you to achieve it.",
-      "It's the possibility of having a dream come true that makes life interesting."
-    ]
+      "It's the possibility of having a dream come true that makes life interesting.",
+    ],
   },
   {
     title: "The Handmaid's Tale",
@@ -205,8 +205,8 @@ export const readBooks: Book[] = [
     rating: 5,
     quotes: [
       "Better never means better for everyone... It always means worse, for some.",
-      "Nolite te bastardes carborundorum."
-    ]
+      "Nolite te bastardes carborundorum.",
+    ],
   },
   {
     title: "The Catch-22",
@@ -214,8 +214,8 @@ export const readBooks: Book[] = [
     rating: 5,
     quotes: [
       "He was going to live forever, or die in the attempt.",
-      "Just because you're paranoid doesn't mean they aren't after you."
-    ]
+      "Just because you're paranoid doesn't mean they aren't after you.",
+    ],
   },
   {
     title: "The Kite Runner",
@@ -223,8 +223,8 @@ export const readBooks: Book[] = [
     rating: 5,
     quotes: [
       "For you, a thousand times over.",
-      "It may be unfair, but what happens in a few days, sometimes even a single day, can change the course of a whole lifetime."
-    ]
+      "It may be unfair, but what happens in a few days, sometimes even a single day, can change the course of a whole lifetime.",
+    ],
   },
   {
     title: "Life of Pi",
@@ -232,8 +232,8 @@ export const readBooks: Book[] = [
     rating: 4,
     quotes: [
       "The world isn't just the way it is. It is how we understand it.",
-      "I must say a word about fear. It is life's only true opponent."
-    ]
+      "I must say a word about fear. It is life's only true opponent.",
+    ],
   },
   {
     title: "The Book Thief",
@@ -241,8 +241,8 @@ export const readBooks: Book[] = [
     rating: 5,
     quotes: [
       "I have hated words and I have loved them, and I hope I have made them right.",
-      "The only thing worse than a boy who hates you: a boy that loves you."
-    ]
+      "The only thing worse than a boy who hates you: a boy that loves you.",
+    ],
   },
   {
     title: "The Secret Life of Bees",
@@ -250,8 +250,8 @@ export const readBooks: Book[] = [
     rating: 4,
     quotes: [
       "Someone who thinks death is the scariest thing doesn't know a thing about life.",
-      "The world will give you that once in a while, a brief time out; the boxing bell rings and you go to your corner, where somebody dabs mercy on your beat-up life."
-    ]
+      "The world will give you that once in a while, a brief time out; the boxing bell rings and you go to your corner, where somebody dabs mercy on your beat-up life.",
+    ],
   },
   {
     title: "The Giver",
@@ -259,8 +259,8 @@ export const readBooks: Book[] = [
     rating: 4,
     quotes: [
       "The worst part of holding the memories is not the pain. It's the loneliness of it. Memories need to be shared.",
-      "We gained control of many things. But we had to let go of others."
-    ]
+      "We gained control of many things. But we had to let go of others.",
+    ],
   },
   {
     title: "The Shining",
@@ -268,8 +268,8 @@ export const readBooks: Book[] = [
     rating: 5,
     quotes: [
       "Monsters are real. Ghosts are too. They live inside of us, and sometimes, they win.",
-      "All work and no play makes Jack a dull boy."
-    ]
+      "All work and no play makes Jack a dull boy.",
+    ],
   },
   {
     title: "The Fault in Our Stars",
@@ -277,8 +277,8 @@ export const readBooks: Book[] = [
     rating: 4,
     quotes: [
       "Some infinities are bigger than other infinities.",
-      "My thoughts are stars I cannot fathom into constellations."
-    ]
+      "My thoughts are stars I cannot fathom into constellations.",
+    ],
   },
   {
     title: "The Hunger Games",
@@ -286,8 +286,8 @@ export const readBooks: Book[] = [
     rating: 4,
     quotes: [
       "May the odds be ever in your favor.",
-      "I am not pretty. I am not beautiful. I am as radiant as the sun."
-    ]
+      "I am not pretty. I am not beautiful. I am as radiant as the sun.",
+    ],
   },
   {
     title: "The Girl with the Dragon Tattoo",
@@ -295,8 +295,8 @@ export const readBooks: Book[] = [
     rating: 4,
     quotes: [
       "Friendship- my definition- is built on two things. Respect and trust.",
-      "What she had realized was that love was that moment when your heart was about to burst."
-    ]
+      "What she had realized was that love was that moment when your heart was about to burst.",
+    ],
   },
   {
     title: "The Da Vinci Code",
@@ -304,8 +304,8 @@ export const readBooks: Book[] = [
     rating: 4,
     quotes: [
       "Men go to far greater lengths to avoid what they fear than to obtain what they desire.",
-      "The human mind has a primitive ego defense mechanism that negates all realities that produce too much stress for the brain to handle."
-    ]
+      "The human mind has a primitive ego defense mechanism that negates all realities that produce too much stress for the brain to handle.",
+    ],
   },
   {
     title: "The Little Prince",
@@ -313,8 +313,8 @@ export const readBooks: Book[] = [
     rating: 5,
     quotes: [
       "It is only with the heart that one can see rightly; what is essential is invisible to the eye.",
-      "All grown-ups were once children... but only few of them remember it."
-    ]
+      "All grown-ups were once children... but only few of them remember it.",
+    ],
   },
   {
     title: "The Hitchhiker's Guide to the Galaxy",
@@ -322,8 +322,8 @@ export const readBooks: Book[] = [
     rating: 5,
     quotes: [
       "Don't Panic.",
-      "For instance, on the planet Earth, man had always assumed that he was more intelligent than dolphins because he had achieved so much—the wheel, New York, wars and so on—whilst all the dolphins had ever done was muck about in the water having a good time. But conversely, the dolphins had always believed that they were far more intelligent than man—for precisely the same reasons."
-    ]
+      "For instance, on the planet Earth, man had always assumed that he was more intelligent than dolphins because he had achieved so much—the wheel, New York, wars and so on—whilst all the dolphins had ever done was muck about in the water having a good time. But conversely, the dolphins had always believed that they were far more intelligent than man—for precisely the same reasons.",
+    ],
   },
   {
     title: "The Time Traveler's Wife",
@@ -331,7 +331,7 @@ export const readBooks: Book[] = [
     rating: 4,
     quotes: [
       "It's hard being left behind. It's hard to be the one who stays.",
-      "Love knows no time."
-    ]
+      "Love knows no time.",
+    ],
   },
 ];
