@@ -19,9 +19,7 @@ function PaginatedReadBooks() {
   });
 
   useEffect(() => {
-    if (getPaginatedBooks.isStale) {
-      getPaginatedBooks.refetch();
-    }
+    getPaginatedBooks.refetch();
   }, [offset]);
 
   return (
@@ -42,8 +40,8 @@ function PaginatedReadBooks() {
                 queryClient.invalidateQueries({
                   queryKey: ["getBooksPaginated"],
                 });
-                searchParams.set("offset", `${opts.offset}`)
-                navigate(`?${searchParams.toString()}`)
+                searchParams.set("offset", `${opts.offset}`);
+                navigate(`?${searchParams.toString()}`);
               }}
             />
           </div>
