@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { LocalStorage } from "../../storage/localStorage";
 
 LocalStorage.createReadBooksIfNotExists();
+LocalStorage.createTagsIfNotExists();
 
 function MainPage() {
   const feedback = useFeedback();

@@ -11,6 +11,8 @@ import {
   fetchGetReadBooks,
   fetchGetRandomQuote,
   fetchPostReadBook,
+  fetchGetBookTags,
+  GetBookTagsResponseBody,
 } from "../repo/bookRepo";
 import { Book } from "../components/readBooks/Book";
 
@@ -30,8 +32,9 @@ export function useGetReadBooksPaginated(opts: GetBooksOptions) {
     placeholderData: {
       books: Array(opts.take)
         .fill(undefined)
-        .map(() => {
+        .map((_, i) => {
           return {
+            id: i,
             author: "Loading...",
             title: "Loading...",
             rating: 0,
@@ -70,8 +73,9 @@ export function useGetReadBooksStacked(opts: GetBooksOptions) {
         {
           books: Array(opts.take)
             .fill(undefined)
-            .map(() => {
+            .map((_, i) => {
               return {
+                id: i,
                 author: "Loading...",
                 title: "Loading...",
                 rating: 0,
@@ -120,20 +124,36 @@ export function useCreateReadBook(opts: {
   });
 }
 
-export function useGetRandomQuote(){
+export function useGetRandomQuote() {
   return useQuery({
     queryKey: ["getRandomQuote"],
     queryFn: async () => {
-      throw new Error("Quote not found.")
       const res = await fetchGetRandomQuote();
-      if(res.status == 404){
-        throw new Error("Quote not found.")
+      if (res.status == 404) {
+        throw new Error("Quote not found.");
       }
-      if(res.status != 200){
-        throw new Error("Failed to find quote")
+      if (res.status != 200) {
+        throw new Error("Failed to find quote");
       }
       return res.json() as GetRandomQuoteResponseBody;
     },
-    refetchInterval: 1000 * 10
-  })
+    refetchInterval: 1000 * 10,
+  });
+}
+
+export function useGetBookTags(opts: { bookId: number, enabled?: boolean; }) {
+  return useQuery({
+    queryKey: [`getBooksTags-${opts.bookId}`],
+    queryFn: async () => {
+      const res = await fetchGetBookTags({ bookId: opts.bookId });
+      if (res.status == 404) {
+        throw new Error("Book tags not found.");
+      }
+      if (res.status != 200) {
+        throw new Error("Failed to get book tags.");
+      }
+      return res.json() as GetBookTagsResponseBody;
+    },
+    enabled: opts.enabled
+  });
 }

@@ -28,7 +28,7 @@ function StackedBooks(_: StackedBooksProps) {
           return (
             <Book
               book={book}
-              key={index}
+              key={book.id}
               onEnterScreen={
                 isLastBook
                   ? () => {

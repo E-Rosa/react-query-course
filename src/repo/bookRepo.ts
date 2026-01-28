@@ -2,6 +2,7 @@ import { Book } from "../components/readBooks/Book";
 import { LocalStorage } from "../storage/localStorage";
 import { GetBooksResponse } from "../hooks/bookHooks";
 import { MockBody, MockFetch, MockResponse } from "@eliasrrosa/mock-fetch";
+import { BookTags } from "../storage/data/tags";
 
 export type GetBooksOptions = {
   offset: number;
@@ -9,7 +10,7 @@ export type GetBooksOptions = {
 };
 
 export async function fetchGetReadBooks(
-  opts: GetBooksOptions
+  opts: GetBooksOptions,
 ): Promise<MockResponse> {
   return MockFetch.fetch(() => {
     const offset = opts.offset;
@@ -45,7 +46,7 @@ export async function fetchGetReadBooks(
       body: new MockBody(body),
       status: status,
     });
-    console.log("fetched books.");
+
     return res;
   });
 }
@@ -55,7 +56,7 @@ export type CreateBookRequestBody = {
 };
 
 export async function fetchPostReadBook(
-  opts: CreateBookRequestBody
+  opts: CreateBookRequestBody,
 ): Promise<MockResponse> {
   return MockFetch.fetch(() => {
     const storedBooksJSON = LocalStorage.getReadBooks();
@@ -83,6 +84,7 @@ export async function fetchPostReadBook(
 export type GetRandomQuoteResponseBody = {
   quote: string;
 };
+
 export async function fetchGetRandomQuote(): Promise<MockResponse> {
   return MockFetch.fetch(() => {
     const readBooksJSON = LocalStorage.getReadBooks();
@@ -110,8 +112,6 @@ export async function fetchGetRandomQuote(): Promise<MockResponse> {
       i++;
     }
 
-    /* Have to use this condition rather than !targetBookHasQuote
-     because typescript can't figure out that targetBook.quotes exists. */
     if (!targetBook.quotes || targetBook.quotes.length <= 0) {
       return new MockResponse({
         body: new MockBody(undefined),
@@ -120,11 +120,43 @@ export async function fetchGetRandomQuote(): Promise<MockResponse> {
     }
 
     const randomQuoteIndex = Math.floor(
-      Math.random() * (targetBook.quotes.length - 1)
+      Math.random() * (targetBook.quotes.length - 1),
     );
     const quote = targetBook.quotes[randomQuoteIndex];
     return new MockResponse({
       body: new MockBody({ quote: quote }),
+      status: 200,
+    });
+  });
+}
+export type GetBookTagsResponseBody = BookTags;
+
+export function fetchGetBookTags(opts: { bookId: number }) {
+  return MockFetch.fetch(() => {
+    const JSONbookTagsArray = LocalStorage.getTags();
+
+    if (!JSONbookTagsArray) {
+      return new MockResponse({
+        body: new MockBody(undefined),
+        status: 404,
+      });
+    }
+
+    const bookTagsArray = JSON.parse(JSONbookTagsArray) as BookTags[];
+    const targetBookTags = bookTagsArray.find(
+      (bookTagsData) => bookTagsData.bookId == opts.bookId,
+    );
+
+    if (!targetBookTags) {
+      return new MockResponse({
+        body: new MockBody(undefined),
+        status: 404,
+      });
+    }
+
+    const body: GetBookTagsResponseBody = targetBookTags;
+    return new MockResponse({
+      body: new MockBody(body),
       status: 200,
     });
   });

@@ -1,7 +1,9 @@
 import { VinminPagination } from "@eliasrrosa/vinmin";
 import Book from "../readBooks/Book";
 import { useEffect } from "react";
-import { useGetReadBooksPaginated } from "../../hooks/bookHooks";
+import {
+  useGetReadBooksPaginated,
+} from "../../hooks/bookHooks";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useSearchParams } from "react-router";
 
@@ -28,8 +30,8 @@ function PaginatedReadBooks() {
         getPaginatedBooks.data.books &&
         getPaginatedBooks.data.books.length > 0 && (
           <div className="flex flex-col gap-4">
-            {getPaginatedBooks.data.books.map((book, key) => {
-              return <Book book={book} key={key} />;
+            {getPaginatedBooks.data.books.map((book) => {
+              return <Book book={book} key={book.id} />;
             })}
             <VinminPagination
               className="self-center mt-2"
