@@ -27,7 +27,14 @@ function CreateBookForm(props: CreateBookFormProps) {
     onSuccess: () => {
       props.onCreateSuccess?.();
       feedback.setSuccess("Book was added to the shelf!");
-      queryClient.invalidateQueries();
+      queryClient.invalidateQueries({
+        exact: true,
+        queryKey: ["getBooksPaginated"],
+      });
+      queryClient.invalidateQueries({
+        exact: true,
+        queryKey: ["getBooksStacked"],
+      });
     },
   });
   return (
@@ -100,6 +107,12 @@ function CreateBookForm(props: CreateBookFormProps) {
               }
               if (!author) {
                 return feedback.setError("Please, insert an author.");
+              }
+              if(!tags){
+                return feedback.setError("Please, insert at least one tag.")
+              }
+              if(!quotesArray || quotesArray.length == 0) {
+                return feedback.setError("Please, insert at least one quote.")
               }
               createBook.mutate({
                 book: {

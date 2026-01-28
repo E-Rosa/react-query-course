@@ -4,12 +4,10 @@ import { useEffect } from "react";
 import {
   useGetReadBooksPaginated,
 } from "../../hooks/bookHooks";
-import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useSearchParams } from "react-router";
 
 function PaginatedReadBooks() {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
   const searchParamsOffset = searchParams.get("offset");
   const offset = searchParamsOffset ? parseInt(searchParamsOffset) : 0;
@@ -39,9 +37,6 @@ function PaginatedReadBooks() {
               offset={offset}
               totalItemsCount={getPaginatedBooks.data.totalBooksCount}
               onPageClick={(opts) => {
-                queryClient.invalidateQueries({
-                  queryKey: ["getBooksPaginated"],
-                });
                 searchParams.set("offset", `${opts.offset}`);
                 navigate(`?${searchParams.toString()}`);
               }}
