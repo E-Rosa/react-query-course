@@ -1,4 +1,4 @@
-import heroImage from "../../../shared-assets/assets/hero-image.webp";
+import heroImage from "../../assets/hero-image.webp";
 
 interface HeroImageProps {
   className?: string;

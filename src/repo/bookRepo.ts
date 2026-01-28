@@ -1,6 +1,6 @@
-import { Book } from "../../complete-app/components/readBooks/Book";
+import { Book } from "../components/readBooks/Book";
+import { GetBooksResponse } from "../hooks/bookHooks";
 import { LocalStorage } from "../storage/localStorage";
-import { GetBooksResponse } from "../../complete-app/hooks/bookHooks";
 import { MockBody, MockFetch, MockResponse } from "@eliasrrosa/mock-fetch";
 
 export type GetBooksOptions = {
