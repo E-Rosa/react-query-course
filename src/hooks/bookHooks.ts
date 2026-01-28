@@ -5,12 +5,12 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import {
-  getReadBooks,
   GetBooksOptions,
   CreateBookRequestBody,
-  createReadBook,
-  getRandomQuote,
   GetRandomQuoteResponseBody,
+  fetchGetReadBooks,
+  fetchGetRandomQuote,
+  fetchPostReadBook,
 } from "../repo/bookRepo";
 import { Book } from "../components/readBooks/Book";
 
@@ -23,9 +23,9 @@ export function useGetReadBooksPaginated(opts: GetBooksOptions) {
   return useQuery({
     queryKey: ["getBooksPaginated"],
     queryFn: async () => {
-      const res = await getReadBooks(opts);
+      const res = await fetchGetReadBooks(opts);
       if (res.status != 200) throw new Error("Failed to get books.");
-      return res.body.json() as GetBooksResponse;
+      return res.json() as GetBooksResponse;
     },
     placeholderData: {
       books: Array(opts.take)
@@ -89,10 +89,10 @@ export function useGetReadBooksStacked(opts: GetBooksOptions) {
     },
     queryKey: ["getBooksStacked"],
     queryFn: async (opts) => {
-      const res = await getReadBooks(opts.pageParam);
+      const res = await fetchGetReadBooks(opts.pageParam);
       if (res.status == 404) throw new Error("Books not found.");
       if (res.status != 200) throw new Error("Failed to get books.");
-      return res.body.json() as GetBooksResponse;
+      return res.json() as GetBooksResponse;
     },
   });
 }
@@ -104,7 +104,7 @@ export function useCreateReadBook(opts: {
 }) {
   return useMutation({
     mutationFn: async (opts: CreateBookRequestBody) => {
-      const res = await createReadBook(opts);
+      const res = await fetchPostReadBook(opts);
       if (res.status != 200) {
         throw new Error("Failed to create read book.");
       }
@@ -124,14 +124,15 @@ export function useGetRandomQuote(){
   return useQuery({
     queryKey: ["getRandomQuote"],
     queryFn: async () => {
-      const res = await getRandomQuote();
+      throw new Error("Quote not found.")
+      const res = await fetchGetRandomQuote();
       if(res.status == 404){
         throw new Error("Quote not found.")
       }
       if(res.status != 200){
         throw new Error("Failed to find quote")
       }
-      return res.body.json() as GetRandomQuoteResponseBody;
+      return res.json() as GetRandomQuoteResponseBody;
     },
     refetchInterval: 1000 * 10
   })

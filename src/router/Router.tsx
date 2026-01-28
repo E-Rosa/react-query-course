@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router";
-import App from "../App";
+import MainPage from "../components/pages/MainPage";
 
 interface RouterProps {}
 
@@ -7,7 +7,7 @@ function Router(_: RouterProps) {
   return (
     <>
       <Routes>
-        <Route path="/" element={<App />}></Route>
+        <Route path="/" element={<MainPage />}></Route>
       </Routes>
     </>
   );

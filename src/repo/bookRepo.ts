@@ -1,14 +1,14 @@
 import { Book } from "../components/readBooks/Book";
 import { LocalStorage } from "../storage/localStorage";
 import { GetBooksResponse } from "../hooks/bookHooks";
-import { MockBody, MockFetch, MockResponse } from "./fetch";
+import { MockBody, MockFetch, MockResponse } from "@eliasrrosa/mock-fetch";
 
 export type GetBooksOptions = {
   offset: number;
   take: number;
 };
 
-export async function getReadBooks(
+export async function fetchGetReadBooks(
   opts: GetBooksOptions
 ): Promise<MockResponse> {
   return MockFetch.fetch(() => {
@@ -54,7 +54,7 @@ export type CreateBookRequestBody = {
   book: Book;
 };
 
-export async function createReadBook(
+export async function fetchPostReadBook(
   opts: CreateBookRequestBody
 ): Promise<MockResponse> {
   return MockFetch.fetch(() => {
@@ -83,7 +83,7 @@ export async function createReadBook(
 export type GetRandomQuoteResponseBody = {
   quote: string;
 };
-export async function getRandomQuote(): Promise<MockResponse> {
+export async function fetchGetRandomQuote(): Promise<MockResponse> {
   return MockFetch.fetch(() => {
     const readBooksJSON = LocalStorage.getReadBooks();
 

@@ -21,7 +21,7 @@ function ReadBooksSection(props: ReadBooksSectionProps) {
       ? activeTabParam
       : activeTabParam == "pagination"
       ? activeTabParam
-      : "stack";
+      : "pagination";
 
   const [createBookModalIsActive, setCreateBookModalIsActive] = useState(false);
 
