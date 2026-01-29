@@ -2,9 +2,9 @@ import { VinminButton, VinminSpan } from "@eliasrrosa/vinmin";
 import Book from "../readBooks/Book";
 import { useGetReadBooksStacked } from "../../hooks/bookHooks";
 import { useState } from "react";
+import { PlaceholderBook } from "../readBooks/PlaceholderBook";
 
-interface StackedBooksProps {
-}
+interface StackedBooksProps {}
 
 function StackedBooks(_: StackedBooksProps) {
   const [offset, setOffset] = useState(0);
@@ -20,26 +20,30 @@ function StackedBooks(_: StackedBooksProps) {
         return page.books;
       })
       .filter((page) => page != undefined) || [];
+
   return (
     <>
       <div className="flex flex-col gap-4">
-        {stackedBooks.map((book, index, books) => {
-          const isLastBook = books.length == index + 1;
-          return (
-            <Book
-              book={book}
-              key={book.id}
-              onEnterScreen={
-                isLastBook
-                  ? () => {
-                      getStackedBooks.fetchNextPage();
-                      setOffset((prev) => prev + take);
-                    }
-                  : undefined
-              }
-            />
-          );
-        })}
+        {getStackedBooks.isSuccess &&
+          stackedBooks.map((book, index, books) => {
+            const isLastBook = books.length == index + 1;
+            return getStackedBooks.isPlaceholderData ? (
+              <PlaceholderBook key={index} />
+            ) : (
+              <Book
+                book={book}
+                key={book.id}
+                onEnterScreen={
+                  isLastBook
+                    ? () => {
+                        getStackedBooks.fetchNextPage();
+                        setOffset((prev) => prev + take);
+                      }
+                    : undefined
+                }
+              />
+            );
+          })}
         {getStackedBooks.hasNextPage && !getStackedBooks.isFetching && (
           <VinminButton
             attributes={{

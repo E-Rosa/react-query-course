@@ -17,13 +17,13 @@ export type Book = {
   quotes?: string[];
 };
 
-interface BookProps {
+export interface BookView {
   book: Book;
   isPlaceholder?: boolean;
   onEnterScreen?: () => unknown;
 }
 
-function Book(props: BookProps) {
+function Book(props: BookView) {
   const { isOnScreen, ref } = useIsOnScreen();
 
   const [displayTags, setDisplayTags] = useState(false);
@@ -74,8 +74,8 @@ function Book(props: BookProps) {
 
       {displayTags && getTags.data && (
         <div className="flex gap-2 mt-5">
-          {getTags.data.tags.map((tag) => (
-            <Tag tag={tag} />
+          {getTags.data.tags.map((tag, key) => (
+            <Tag tag={tag} key={key} />
           ))}
         </div>
       )}

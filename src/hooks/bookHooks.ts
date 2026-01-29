@@ -17,9 +17,8 @@ import {
 import { Book } from "../components/readBooks/Book";
 
 export type GetBooksResponse = {
-  books: Book[] | undefined;
+  books: Book[];
   totalBooksCount: number;
-  isPlaceholder?: boolean;
 };
 
 export function useGetReadBooksPaginated(opts: GetBooksOptions) {
@@ -42,7 +41,6 @@ export function useGetReadBooksPaginated(opts: GetBooksOptions) {
           };
         }),
       totalBooksCount: 100,
-      isPlaceholder: true,
     },
   });
 }

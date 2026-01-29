@@ -3,6 +3,7 @@ import Book from "../readBooks/Book";
 import { useEffect } from "react";
 import { useGetReadBooksPaginated } from "../../hooks/bookHooks";
 import { useNavigate, useSearchParams } from "react-router";
+import { PlaceholderBook } from "../readBooks/PlaceholderBook";
 
 function PaginatedReadBooks() {
   const navigate = useNavigate();
@@ -26,15 +27,11 @@ function PaginatedReadBooks() {
         getPaginatedBooks.data.books &&
         getPaginatedBooks.data.books.length > 0 && (
           <div className="flex flex-col gap-4">
-            {getPaginatedBooks.data.books.map((book) => {
-              return (
-                <Book
-                  book={book}
-                  isPlaceholder={
-                    getPaginatedBooks.data.isPlaceholder ? true : false
-                  }
-                  key={book.id}
-                />
+            {getPaginatedBooks.data.books.map((book, key) => {
+              return getPaginatedBooks.isPlaceholderData ? (
+                <PlaceholderBook key={key} />
+              ) : (
+                <Book book={book} key={book.id} />
               );
             })}
           </div>
