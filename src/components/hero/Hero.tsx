@@ -21,7 +21,7 @@ function Hero(props: HeroProps) {
               library. Document, rate and organize all your read books in a
               single place.
             </VinminP>
-            <VinminButton vinminStyle="white bordered">
+            <VinminButton vinminStyle="black">
               Organize your Books
             </VinminButton>
           </div>
