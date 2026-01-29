@@ -55,7 +55,7 @@ function Book(props: BookView) {
 
       {!displayTags && !props.isPlaceholder && (
         <VinminButton
-          className="w-fit py-0 mt-5 rounded bg-white border-gray-600 text-gray-600"
+          className="w-fit py-0 mt-5"
           attributes={{
             onClick: () => {
               setDisplayTags(true);
