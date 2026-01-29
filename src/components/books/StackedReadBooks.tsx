@@ -44,6 +44,25 @@ function StackedBooks(_: StackedBooksProps) {
               />
             );
           })}
+
+        {getStackedBooks.isError && (
+          <div className="flex items-center justify-between border p-4 text-center w-full border-gray-600 mt-2">
+            <VinminSpan vinminStyle="primary" className="text-gray-600">
+              {getStackedBooks.error.message}
+            </VinminSpan>
+            <VinminButton
+              attributes={{
+                onClick: () => {
+                  getStackedBooks.refetch();
+                },
+              }}
+              className="p-2 ml-4 w-fit place-self-center self-center"
+            >
+              Try again
+            </VinminButton>
+          </div>
+        )}
+
         {getStackedBooks.hasNextPage && !getStackedBooks.isFetching && (
           <VinminButton
             attributes={{
@@ -58,6 +77,7 @@ function StackedBooks(_: StackedBooksProps) {
             Load more...
           </VinminButton>
         )}
+
         {getStackedBooks.isFetching && (
           <VinminSpan className="w-full text-center text-gray-600 italic">
             Loading...
