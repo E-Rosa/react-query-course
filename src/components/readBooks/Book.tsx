@@ -19,6 +19,7 @@ export type Book = {
 
 interface BookProps {
   book: Book;
+  isPlaceholder?: boolean;
   onEnterScreen?: () => unknown;
 }
 
@@ -43,13 +44,16 @@ function Book(props: BookProps) {
         <VinminSpan vinminStyle="primary">{props.book.title}</VinminSpan>
         <VinminStarRating filledStarsCount={rating} />
       </div>
+
       <VinminSpan vinminStyle="secondary" className="text-[1em] mb-5">
         {props.book.author}
       </VinminSpan>
+
       {props.book.quotes && props.book.quotes.length > 0 && (
         <VinminP vinminStyle="tertiary">{props.book.quotes[0]}</VinminP>
       )}
-      {displayTags == false && (
+
+      {!displayTags && !props.isPlaceholder && (
         <VinminButton
           className="w-fit py-0 mt-5 rounded bg-white border-gray-600 text-gray-600"
           attributes={{
@@ -61,6 +65,13 @@ function Book(props: BookProps) {
           see tags
         </VinminButton>
       )}
+
+      {getTags.isLoading && (
+        <div className="mt-5">
+          <Tag tag={"Loading..."} />
+        </div>
+      )}
+
       {displayTags && getTags.data && (
         <div className="flex gap-2 mt-5">
           {getTags.data.tags.map((tag) => (

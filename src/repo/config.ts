@@ -1,3 +1,3 @@
 export const RepoConfig = {
-    DEFAULT_FETCH_TIMEOUT_MS: 5000
+    DEFAULT_FETCH_TIMEOUT_MS: 2000
 }

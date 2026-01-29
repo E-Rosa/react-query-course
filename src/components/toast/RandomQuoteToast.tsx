@@ -9,9 +9,23 @@ function RandomQuote(props: RandomQuoteToastProps) {
   const getRandomQuote = useGetRandomQuote();
   return (
     <>
-      {getRandomQuote.data && (
+      {getRandomQuote.data &&
+        !getRandomQuote.isLoading &&
+        !getRandomQuote.isRefetching && (
+          <VinminSpan vinminStyle="tertiary" className={props.className}>
+            {`"${getRandomQuote.data.quote}"`}
+          </VinminSpan>
+        )}
+
+      {(getRandomQuote.isLoading || getRandomQuote.isRefetching) && (
         <VinminSpan vinminStyle="tertiary" className={props.className}>
-          {`"${getRandomQuote.data.quote}"`}
+          Loading...
+        </VinminSpan>
+      )}
+
+      {getRandomQuote.isError && (
+        <VinminSpan vinminStyle="tertiary" className={props.className}>
+          "Big Brother is watching you."
         </VinminSpan>
       )}
     </>
