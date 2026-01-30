@@ -1,6 +1,5 @@
 import { VinminButton, VinminPagination, VinminSpan } from "@eliasrrosa/vinmin";
 import Book from "../readBooks/Book";
-import { useEffect } from "react";
 import { useGetReadBooksPaginated } from "../../hooks/bookHooks";
 import { useNavigate, useSearchParams } from "react-router";
 import { PlaceholderBook } from "../readBooks/PlaceholderBook";
@@ -17,22 +16,22 @@ function PaginatedReadBooks() {
     take: take,
   });
 
-  useEffect(() => {
-    getPaginatedBooks.refetch();
-  }, [offset]);
-
   return (
     <div className="flex flex-col gap-4">
+      {getPaginatedBooks.isLoading && (
+        <div className="flex flex-col gap-4">
+          {Array.from({ length: take }).map((_, key) => (
+            <PlaceholderBook key={key} />
+          ))}
+        </div>
+      )}
+
       {getPaginatedBooks.data &&
         getPaginatedBooks.data.books &&
         getPaginatedBooks.data.books.length > 0 && (
           <div className="flex flex-col gap-4">
             {getPaginatedBooks.data.books.map((book, key) => {
-              return getPaginatedBooks.isPlaceholderData ? (
-                <PlaceholderBook key={key} />
-              ) : (
-                <Book book={book} key={book.id} />
-              );
+              return <Book book={book} key={book.id} />;
             })}
           </div>
         )}

@@ -1,13 +1,12 @@
 import { VinminButton, VinminSpan } from "@eliasrrosa/vinmin";
 import Book from "../readBooks/Book";
 import { useGetReadBooksStacked } from "../../hooks/bookHooks";
-import { useState } from "react";
 import { PlaceholderBook } from "../readBooks/PlaceholderBook";
 
 interface StackedBooksProps {}
 
 function StackedBooks(_: StackedBooksProps) {
-  const [offset, setOffset] = useState(0);
+  const offset = 0;
   const take = 5;
   const getStackedBooks = useGetReadBooksStacked({
     offset: offset,
@@ -37,7 +36,6 @@ function StackedBooks(_: StackedBooksProps) {
                   isLastBook
                     ? () => {
                         getStackedBooks.fetchNextPage();
-                        setOffset((prev) => prev + take);
                       }
                     : undefined
                 }
@@ -63,20 +61,21 @@ function StackedBooks(_: StackedBooksProps) {
           </div>
         )}
 
-        {getStackedBooks.hasNextPage && !getStackedBooks.isFetching && (
-          <VinminButton
-            attributes={{
-              onClick: getStackedBooks.hasNextPage
-                ? () => {
-                    getStackedBooks.fetchNextPage();
-                    setOffset((prev) => prev + take);
-                  }
-                : undefined,
-            }}
-          >
-            Load more...
-          </VinminButton>
-        )}
+        {getStackedBooks.hasNextPage &&
+          !getStackedBooks.isFetching &&
+          !getStackedBooks.isError && (
+            <VinminButton
+              attributes={{
+                onClick: getStackedBooks.hasNextPage
+                  ? () => {
+                      getStackedBooks.fetchNextPage();
+                    }
+                  : undefined,
+              }}
+            >
+              Load more...
+            </VinminButton>
+          )}
 
         {getStackedBooks.isFetching && (
           <VinminSpan className="w-full text-center text-gray-600 italic">

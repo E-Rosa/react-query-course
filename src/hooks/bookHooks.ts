@@ -1,5 +1,6 @@
 import {
   InfiniteData,
+  keepPreviousData,
   useInfiniteQuery,
   useMutation,
   useQuery,
@@ -23,25 +24,13 @@ export type GetBooksResponse = {
 
 export function useGetReadBooksPaginated(opts: GetBooksOptions) {
   return useQuery({
-    queryKey: ["getBooksPaginated"],
+    queryKey: ["getBooksPaginated", opts.offset, opts.take],
     queryFn: async () => {
       const res = await fetchGetReadBooks(opts);
       if (res.status != 200) throw new Error("Failed to get books.");
       return res.json() as GetBooksResponse;
     },
-    placeholderData: {
-      books: Array(opts.take)
-        .fill(undefined)
-        .map((_, i) => {
-          return {
-            id: `${i}`,
-            author: "Loading...",
-            title: "Loading...",
-            rating: 0,
-          };
-        }),
-      totalBooksCount: 100,
-    },
+    placeholderData: keepPreviousData,
   });
 }
 
@@ -91,7 +80,7 @@ export function useGetReadBooksStacked(opts: GetBooksOptions) {
         },
       ],
     },
-    queryKey: ["getBooksStacked"],
+    queryKey: ["getBooksStacked", opts.offset, opts.take],
     queryFn: async (opts) => {
       const res = await fetchGetReadBooks(opts.pageParam);
       if (res.status == 404) throw new Error("Books not found.");

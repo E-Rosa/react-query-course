@@ -26,11 +26,9 @@ export interface BookView {
 function Book(props: BookView) {
   const { isOnScreen, ref } = useIsOnScreen();
 
-  const [displayTags, setDisplayTags] = useState(false);
-
   const getTags = useGetBookTags({
     bookId: props.book.id,
-    enabled: displayTags,
+    enabled: !props.isPlaceholder && isOnScreen,
   });
 
   useEffect(() => {
@@ -53,18 +51,21 @@ function Book(props: BookView) {
         <VinminP vinminStyle="tertiary">{props.book.quotes[0]}</VinminP>
       )}
 
-      {!displayTags && !props.isPlaceholder && (
-        <VinminButton
-          className="w-fit py-0 mt-5"
-          attributes={{
-            onClick: () => {
-              setDisplayTags(true);
-            },
-          }}
-        >
-          see tags
-        </VinminButton>
-      )}
+      {getTags.status == "pending" &&
+        !props.isPlaceholder &&
+        !getTags.isLoading && (
+          <VinminButton
+            className="w-fit py-0 mt-5"
+            vinminStyle="white bordered"
+            attributes={{
+              onClick: () => {
+                getTags.refetch();
+              },
+            }}
+          >
+            see tags
+          </VinminButton>
+        )}
 
       {getTags.isLoading && (
         <div className="mt-5">
@@ -72,11 +73,27 @@ function Book(props: BookView) {
         </div>
       )}
 
-      {displayTags && getTags.data && (
+      {getTags.data && (
         <div className="flex gap-2 mt-5">
           {getTags.data.tags.map((tag, key) => (
             <Tag tag={tag} key={key} />
           ))}
+        </div>
+      )}
+
+      {getTags.error && (
+        <div className="flex justify-between items-center p-4 border mt-5">
+          <VinminSpan vinminStyle="tertiary">Failed to get tags.</VinminSpan>
+          <VinminButton
+            className="w-fit py-0"
+            attributes={{
+              onClick: () => {
+                getTags.refetch();
+              },
+            }}
+          >
+            Try Again
+          </VinminButton>
         </div>
       )}
     </div>
