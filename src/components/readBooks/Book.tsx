@@ -1,13 +1,10 @@
 import {
-  VinminButton,
   VinminP,
   VinminSpan,
   VinminStarRating,
 } from "@eliasrrosa/vinmin";
 import { useIsOnScreen } from "../../hooks/isOnScreenHook";
-import { useEffect, useState } from "react";
-import { useGetBookTags } from "../../hooks/bookHooks";
-import { Tag } from "../books/Tag";
+import { useEffect } from "react";
 
 export type Book = {
   id: string;
@@ -25,11 +22,6 @@ export interface BookView {
 
 function Book(props: BookView) {
   const { isOnScreen, ref } = useIsOnScreen();
-
-  const getTags = useGetBookTags({
-    bookId: props.book.id,
-    enabled: !props.isPlaceholder && isOnScreen,
-  });
 
   useEffect(() => {
     if (isOnScreen) props.onEnterScreen?.();
@@ -49,52 +41,6 @@ function Book(props: BookView) {
 
       {props.book.quotes && props.book.quotes.length > 0 && (
         <VinminP vinminStyle="tertiary">{props.book.quotes[0]}</VinminP>
-      )}
-
-      {getTags.status == "pending" &&
-        !props.isPlaceholder &&
-        !getTags.isLoading && (
-          <VinminButton
-            className="w-fit py-0 mt-5"
-            vinminStyle="white bordered"
-            attributes={{
-              onClick: () => {
-                getTags.refetch();
-              },
-            }}
-          >
-            see tags
-          </VinminButton>
-        )}
-
-      {getTags.isLoading && (
-        <div className="mt-5">
-          <Tag tag={"Loading..."} />
-        </div>
-      )}
-
-      {getTags.data && (
-        <div className="flex gap-2 mt-5">
-          {getTags.data.tags.map((tag, key) => (
-            <Tag tag={tag} key={key} />
-          ))}
-        </div>
-      )}
-
-      {getTags.error && (
-        <div className="flex justify-between items-center p-4 border mt-5">
-          <VinminSpan vinminStyle="tertiary">Failed to get tags.</VinminSpan>
-          <VinminButton
-            className="w-fit py-0"
-            attributes={{
-              onClick: () => {
-                getTags.refetch();
-              },
-            }}
-          >
-            Try Again
-          </VinminButton>
-        </div>
       )}
     </div>
   );
