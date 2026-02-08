@@ -4,15 +4,12 @@ import { useNavigate, useSearchParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { fetchReadBooks } from "../../repo/bookRepo";
 import { GetBooksResponse } from "../../hooks/bookHooks";
-import { useFeedback } from "@eliasrrosa/react-ui";
-import { useEffect } from "react";
 
 function PaginatedReadBooks() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const searchParamsOffset = searchParams.get("offset");
   const offset = searchParamsOffset ? parseInt(searchParamsOffset) : 0;
-
   const readBooks = useQuery({
     queryFn: async () => {
       const res = await fetchReadBooks({
@@ -20,21 +17,14 @@ function PaginatedReadBooks() {
         offset: 0,
       });
 
-      return (await res.json()) as GetBooksResponse;
+      return await res.json() as GetBooksResponse;
     },
     queryKey: ["getPaginatedBooks"],
   });
 
-  const feedback = useFeedback();
-
-  useEffect(() => {
-    feedback.setLoading(readBooks.isLoading);
-  }, [readBooks.isLoading]);
   return (
     <>
       <div className="flex flex-col gap-4">
-        {readBooks.isLoading && <span>Loading...</span>}
-        {readBooks.isFetching && <span>Fetching...</span>}
         {readBooks.data?.books?.map((book, key) => {
           return <Book book={book} key={key} />;
         })}
