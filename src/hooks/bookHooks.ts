@@ -1,44 +1,36 @@
 import {
   InfiniteData,
+  keepPreviousData,
   useInfiniteQuery,
   useMutation,
   useQuery,
 } from "@tanstack/react-query";
 import {
-  fetchReadBooks,
   GetBooksOptions,
   CreateBookRequestBody,
-  fetchPostReadBook,
-  fetchRandomQuote,
   GetRandomQuoteResponseBody,
+  fetchReadBooks,
+  fetchRandomQuote,
+  postReadBook,
+  fetchBookTags,
+  GetBookTagsResponseBody,
 } from "../repo/bookRepo";
 import { Book } from "../components/readBooks/Book";
 
 export type GetBooksResponse = {
-  books: Book[] | undefined;
+  books: Book[];
   totalBooksCount: number;
 };
 
 export function useGetReadBooksPaginated(opts: GetBooksOptions) {
   return useQuery({
-    queryKey: ["getBooksPaginated"],
+    queryKey: ["getBooksPaginated", opts.offset, opts.take],
     queryFn: async () => {
       const res = await fetchReadBooks(opts);
       if (res.status != 200) throw new Error("Failed to get books.");
       return res.json() as GetBooksResponse;
     },
-    placeholderData: {
-      books: Array(opts.take)
-        .fill(undefined)
-        .map(() => {
-          return {
-            author: "Loading...",
-            title: "Loading...",
-            rating: 0,
-          };
-        }),
-      totalBooksCount: 100,
-    },
+    placeholderData: keepPreviousData,
   });
 }
 
@@ -70,8 +62,9 @@ export function useGetReadBooksStacked(opts: GetBooksOptions) {
         {
           books: Array(opts.take)
             .fill(undefined)
-            .map(() => {
+            .map((_, i) => {
               return {
+                id: `${i}`,
                 author: "Loading...",
                 title: "Loading...",
                 rating: 0,
@@ -87,7 +80,7 @@ export function useGetReadBooksStacked(opts: GetBooksOptions) {
         },
       ],
     },
-    queryKey: ["getBooksStacked"],
+    queryKey: ["getBooksStacked", opts.offset, opts.take],
     queryFn: async (opts) => {
       const res = await fetchReadBooks(opts.pageParam);
       if (res.status == 404) throw new Error("Books not found.");
@@ -104,7 +97,7 @@ export function useCreateReadBook(opts: {
 }) {
   return useMutation({
     mutationFn: async (opts: CreateBookRequestBody) => {
-      const res = await fetchPostReadBook(opts);
+      const res = await postReadBook(opts);
       if (res.status != 200) {
         throw new Error("Failed to create read book.");
       }
@@ -120,19 +113,36 @@ export function useCreateReadBook(opts: {
   });
 }
 
-export function useGetRandomQuote(){
+export function useGetRandomQuote() {
   return useQuery({
     queryKey: ["getRandomQuote"],
     queryFn: async () => {
       const res = await fetchRandomQuote();
-      if(res.status == 404){
-        throw new Error("Quote not found.")
+      if (res.status == 404) {
+        throw new Error("Quote not found.");
       }
-      if(res.status != 200){
-        throw new Error("Failed to find quote")
+      if (res.status != 200) {
+        throw new Error("Failed to find quote");
       }
       return res.json() as GetRandomQuoteResponseBody;
     },
-    refetchInterval: 1000 * 10
-  })
+    refetchInterval: 1000 * 10,
+  });
+}
+
+export function useGetBookTags(opts: { bookId: string; enabled?: boolean }) {
+  return useQuery({
+    queryKey: ["getBooksTags", opts.bookId],
+    queryFn: async () => {
+      const res = await fetchBookTags({ bookId: opts.bookId });
+      if (res.status == 404) {
+        throw new Error("Book tags not found.");
+      }
+      if (res.status != 200) {
+        throw new Error("Failed to get book tags.");
+      }
+      return res.json() as GetBookTagsResponseBody;
+    },
+    enabled: opts.enabled,
+  });
 }

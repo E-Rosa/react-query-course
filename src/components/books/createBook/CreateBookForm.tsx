@@ -7,6 +7,7 @@ import {
 } from "@eliasrrosa/vinmin";
 import { useState } from "react";
 import { useFeedback } from "@eliasrrosa/react-ui";
+
 interface CreateBookFormProps {
   onCreateSuccess?: () => void;
 }
@@ -16,8 +17,10 @@ function CreateBookForm(props: CreateBookFormProps) {
   const [author, setAuthor] = useState<string>();
   const [quotes, setQuotes] = useState<string>();
   const [rating, setRating] = useState<number>(0);
-  const quotesArray = quotes ? quotes.split(",") : undefined;
+  const [tags, setTags] = useState<string>();
   const feedback = useFeedback();
+  const quotesArray = quotes ? quotes.split(",") : undefined;
+
   return (
     <form className="p-10 bg-white flex flex-col gap-6">
       <VinminH2
@@ -28,7 +31,7 @@ function CreateBookForm(props: CreateBookFormProps) {
         Add a book to the shelf.
       </VinminH2>
       <VinminInput
-        label="Book title"
+        label="Title"
         placeholder="eg: The Metamorphosis"
         inputClassName="w-full"
         attributes={{
@@ -38,7 +41,7 @@ function CreateBookForm(props: CreateBookFormProps) {
         }}
       />
       <VinminInput
-        label="Book author"
+        label="Author"
         placeholder="eg: Franz Kafka"
         inputClassName="w-full"
         attributes={{
@@ -57,6 +60,16 @@ function CreateBookForm(props: CreateBookFormProps) {
           },
         }}
       />
+      <VinminInput
+        inputClassName="w-full"
+        label="Tags"
+        attributes={{
+          onChange: (ev) => {
+            setTags(ev.currentTarget.value);
+          },
+        }}
+        placeholder="Book tags, separated by commas"
+      />
       <div className="flex items-center gap-4 p-4 border border-black">
         <VinminSpan>Rating</VinminSpan>
         <VinminStarRating
@@ -66,23 +79,29 @@ function CreateBookForm(props: CreateBookFormProps) {
           }}
         />
       </div>
-      <VinminButton
-        vinminStyle="black"
-        className="mt-0"
-        attributes={{
-          onClick: (ev) => {
-            ev.preventDefault();
-            if (!title) {
-              return feedback.setError("Please, insert a title.");
-            }
-            if (!author) {
-              return feedback.setError("Please, insert an author.");
-            }
-          },
-        }}
-      >
-        Submit
-      </VinminButton>
+        <VinminButton
+          vinminStyle="black"
+          className="mt-0"
+          attributes={{
+            onClick: (ev) => {
+              ev.preventDefault();
+              if (!title) {
+                return feedback.setError("Please, insert a title.");
+              }
+              if (!author) {
+                return feedback.setError("Please, insert an author.");
+              }
+              if(!tags){
+                return feedback.setError("Please, insert at least one tag.")
+              }
+              if(!quotesArray || quotesArray.length == 0) {
+                return feedback.setError("Please, insert at least one quote.")
+              }
+            },
+          }}
+        >
+          Submit
+        </VinminButton>
     </form>
   );
 }
