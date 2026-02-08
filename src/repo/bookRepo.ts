@@ -11,7 +11,7 @@ export type GetBooksOptions = {
   take: number;
 };
 
-export async function fetchGetReadBooks(
+export async function fetchReadBooks(
   opts: GetBooksOptions,
 ): Promise<MockResponse> {
   return MockFetch.fetch(
@@ -63,7 +63,7 @@ export type CreateBookRequestBody = {
   tags: string[];
 };
 
-export async function fetchPostReadBook(
+export async function postReadBook(
   opts: CreateBookRequestBody,
 ): Promise<MockResponse> {
   return MockFetch.fetch(
@@ -119,7 +119,7 @@ export type GetRandomQuoteResponseBody = {
   quote: string;
 };
 
-export async function fetchGetRandomQuote(): Promise<MockResponse> {
+export async function fetchRandomQuote(): Promise<MockResponse> {
   return MockFetch.fetch(
     () => {
       const readBooksJSON = LocalStorage.getReadBooks();
@@ -171,7 +171,7 @@ export async function fetchGetRandomQuote(): Promise<MockResponse> {
 }
 export type GetBookTagsResponseBody = BookTags;
 
-export function fetchGetBookTags(opts: { bookId: string }) {
+export function fetchBooktags(opts: { bookId: string }) {
   return MockFetch.fetch(
     () => {
       const JSONbookTagsArray = LocalStorage.getTags();

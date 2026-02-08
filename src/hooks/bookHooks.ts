@@ -9,10 +9,10 @@ import {
   GetBooksOptions,
   CreateBookRequestBody,
   GetRandomQuoteResponseBody,
-  fetchGetReadBooks,
-  fetchGetRandomQuote,
-  fetchPostReadBook,
-  fetchGetBookTags,
+  fetchReadBooks,
+  fetchRandomQuote,
+  postReadBook,
+  fetchBooktags,
   GetBookTagsResponseBody,
 } from "../repo/bookRepo";
 import { Book } from "../components/readBooks/Book";
@@ -26,7 +26,7 @@ export function useGetReadBooksPaginated(opts: GetBooksOptions) {
   return useQuery({
     queryKey: ["getBooksPaginated", opts.offset, opts.take],
     queryFn: async () => {
-      const res = await fetchGetReadBooks(opts);
+      const res = await fetchReadBooks(opts);
       if (res.status != 200) throw new Error("Failed to get books.");
       return res.json() as GetBooksResponse;
     },
@@ -82,7 +82,7 @@ export function useGetReadBooksStacked(opts: GetBooksOptions) {
     },
     queryKey: ["getBooksStacked", opts.offset, opts.take],
     queryFn: async (opts) => {
-      const res = await fetchGetReadBooks(opts.pageParam);
+      const res = await fetchReadBooks(opts.pageParam);
       if (res.status == 404) throw new Error("Books not found.");
       if (res.status != 200) throw new Error("Failed to get books.");
       return res.json() as GetBooksResponse;
@@ -97,7 +97,7 @@ export function useCreateReadBook(opts: {
 }) {
   return useMutation({
     mutationFn: async (opts: CreateBookRequestBody) => {
-      const res = await fetchPostReadBook(opts);
+      const res = await postReadBook(opts);
       if (res.status != 200) {
         throw new Error("Failed to create read book.");
       }
@@ -117,7 +117,7 @@ export function useGetRandomQuote() {
   return useQuery({
     queryKey: ["getRandomQuote"],
     queryFn: async () => {
-      const res = await fetchGetRandomQuote();
+      const res = await fetchRandomQuote();
       if (res.status == 404) {
         throw new Error("Quote not found.");
       }
@@ -134,7 +134,7 @@ export function useGetBookTags(opts: { bookId: string; enabled?: boolean }) {
   return useQuery({
     queryKey: ["getBooksTags", opts.bookId],
     queryFn: async () => {
-      const res = await fetchGetBookTags({ bookId: opts.bookId });
+      const res = await fetchBooktags({ bookId: opts.bookId });
       if (res.status == 404) {
         throw new Error("Book tags not found.");
       }
