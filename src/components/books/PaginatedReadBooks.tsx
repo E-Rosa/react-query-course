@@ -28,8 +28,9 @@ function PaginatedReadBooks() {
   const feedback = useFeedback();
 
   useEffect(() => {
-    feedback.setLoading(readBooks.isLoading);
-  }, [readBooks.isLoading]);
+    feedback.setLoading(readBooks.isFetching)
+  }, [readBooks.isFetching]);
+
   return (
     <>
       <div className="flex flex-col gap-4">
