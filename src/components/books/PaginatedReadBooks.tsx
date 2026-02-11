@@ -15,6 +15,8 @@ function PaginatedReadBooks() {
 
   const readBooks = useQuery({
     queryFn: async () => {
+      throw new Error("Server failed.")
+
       const res = await fetchReadBooks({
         take: 5,
         offset: 0,
@@ -36,6 +38,7 @@ function PaginatedReadBooks() {
       <div className="flex flex-col gap-4">
         {readBooks.isLoading && <span>Loading...</span>}
         {readBooks.isFetching && <span>Fetching...</span>}
+        {readBooks.isError && <span className="text-red-700">{readBooks.error.message}</span>}
         {readBooks.data?.books?.map((book, key) => {
           return <Book book={book} key={key} />;
         })}
