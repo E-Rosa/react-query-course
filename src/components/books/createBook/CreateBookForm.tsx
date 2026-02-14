@@ -2,6 +2,7 @@ import {
   VinminButton,
   VinminH2,
   VinminInput,
+  VinminP,
   VinminSpan,
   VinminStarRating,
 } from "@eliasrrosa/vinmin";
@@ -36,98 +37,120 @@ function CreateBookForm(props: CreateBookFormProps) {
     },
   });
   return (
-    <form className="p-10 bg-white flex flex-col gap-6">
-      <VinminH2
-        attributes={{
-          className: "text-4xl",
-        }}
-      >
-        Add a book to the shelf.
-      </VinminH2>
-      <VinminInput
-        label="Title"
-        placeholder="eg: The Metamorphosis"
-        inputClassName="w-full"
-        attributes={{
-          onChange: (ev) => {
-            setTitle(ev.currentTarget.value);
-          },
-        }}
-      />
-      <VinminInput
-        label="Author"
-        placeholder="eg: Franz Kafka"
-        inputClassName="w-full"
-        attributes={{
-          onChange: (ev) => {
-            setAuthor(ev.currentTarget.value);
-          },
-        }}
-      />
-      <VinminInput
-        label="Quotes"
-        placeholder="Your favorite quotes, separated by commas"
-        inputClassName="w-full"
-        attributes={{
-          onChange: (ev) => {
-            setQuotes(ev.currentTarget.value);
-          },
-        }}
-      />
-      <VinminInput
-        inputClassName="w-full"
-        label="Tags"
-        attributes={{
-          onChange: (ev) => {
-            setTags(ev.currentTarget.value);
-          },
-        }}
-        placeholder="Book tags, separated by commas"
-      />
-      <div className="flex items-center gap-4 p-4 border border-black">
-        <VinminSpan>Rating</VinminSpan>
-        <VinminStarRating
-          filledStarsCount={rating}
-          onStarClick={(rating) => {
-            setRating(rating);
-          }}
-        />
-      </div>
-      {!createBook.isPending && (
-        <VinminButton
-          vinminStyle="black"
-          className="mt-0"
-          attributes={{
-            onClick: (ev) => {
-              ev.preventDefault();
-              if (!title) {
-                return feedback.setError("Please, insert a title.");
-              }
-              if (!author) {
-                return feedback.setError("Please, insert an author.");
-              }
-              if(!tags){
-                return feedback.setError("Please, insert at least one tag.")
-              }
-              if(!quotesArray || quotesArray.length == 0) {
-                return feedback.setError("Please, insert at least one quote.")
-              }
-              createBook.mutate({
-                book: {
-                  title: title,
-                  author: author,
-                  rating: rating,
-                  quotes: quotesArray,
+    <>
+      {!createBook.isError && (
+        <form className="p-10 bg-white flex flex-col gap-6">
+          <VinminH2
+            attributes={{
+              className: "text-4xl",
+            }}
+          >
+            Add a book to the shelf.
+          </VinminH2>
+          <VinminInput
+            label="Title"
+            placeholder="eg: The Metamorphosis"
+            inputClassName="w-full"
+            attributes={{
+              onChange: (ev) => {
+                setTitle(ev.currentTarget.value);
+              },
+            }}
+          />
+          <VinminInput
+            label="Author"
+            placeholder="eg: Franz Kafka"
+            inputClassName="w-full"
+            attributes={{
+              onChange: (ev) => {
+                setAuthor(ev.currentTarget.value);
+              },
+            }}
+          />
+          <VinminInput
+            label="Quotes"
+            placeholder="Your favorite quotes, separated by commas"
+            inputClassName="w-full"
+            attributes={{
+              onChange: (ev) => {
+                setQuotes(ev.currentTarget.value);
+              },
+            }}
+          />
+          <VinminInput
+            inputClassName="w-full"
+            label="Tags"
+            attributes={{
+              onChange: (ev) => {
+                setTags(ev.currentTarget.value);
+              },
+            }}
+            placeholder="Book tags, separated by commas"
+          />
+          <div className="flex items-center gap-4 p-4 border border-black">
+            <VinminSpan>Rating</VinminSpan>
+            <VinminStarRating
+              filledStarsCount={rating}
+              onStarClick={(rating) => {
+                setRating(rating);
+              }}
+            />
+          </div>
+          {!createBook.isPending && (
+            <VinminButton
+              vinminStyle="black"
+              className="mt-0"
+              attributes={{
+                onClick: (ev) => {
+                  ev.preventDefault();
+                  if (!title) {
+                    return feedback.setError("Please, insert a title.");
+                  }
+                  if (!author) {
+                    return feedback.setError("Please, insert an author.");
+                  }
+                  if (!tags) {
+                    return feedback.setError(
+                      "Please, insert at least one tag.",
+                    );
+                  }
+                  if (!quotesArray || quotesArray.length == 0) {
+                    return feedback.setError(
+                      "Please, insert at least one quote.",
+                    );
+                  }
+                  createBook.mutate({
+                    book: {
+                      title: title,
+                      author: author,
+                      rating: rating,
+                      quotes: quotesArray,
+                    },
+                    tags: tags ? tags.split(",") : [],
+                  });
                 },
-                tags: tags ? tags.split(",") : [],
-              });
-            },
-          }}
-        >
-          Submit
-        </VinminButton>
+              }}
+            >
+              Submit
+            </VinminButton>
+          )}
+        </form>
       )}
-    </form>
+      {createBook.isError && (
+        <div className="p-10 bg-white flex flex-col gap-6">
+          <VinminP className="text-center">{createBook.error.message}</VinminP>
+          <VinminButton
+            attributes={{
+              onClick: () => {
+                createBook.reset();
+              },
+            }}
+          >
+            Reset
+          </VinminButton>
+        </div>
+      )}
+    </>
   );
 }
 
