@@ -15,12 +15,8 @@ import {
   fetchBooktags,
   GetBookTagsResponseBody,
 } from "../repo/bookRepo";
-import { Book } from "../components/readBooks/Book";
-
-export type GetBooksResponse = {
-  books: Book[];
-  totalBooksCount: number;
-};
+import { GetBooksResponse } from "../repo/responses/GetBooksResponse";
+import { PaginationParams } from "../repo/requestParams/PaginationParams";
 
 export function useGetReadBooksPaginated(opts: GetBooksOptions) {
   return useQuery({
@@ -34,15 +30,13 @@ export function useGetReadBooksPaginated(opts: GetBooksOptions) {
   });
 }
 
-export type PageParams = { offset: number; take: number };
-
 export function useGetReadBooksStacked(opts: GetBooksOptions) {
   return useInfiniteQuery<
     GetBooksResponse,
     Error,
-    InfiniteData<GetBooksResponse, PageParams>,
+    InfiniteData<GetBooksResponse, PaginationParams>,
     readonly unknown[],
-    PageParams
+    PaginationParams
   >({
     getNextPageParam: (lastPage, _, lastPageParam) => {
       const newOffset = lastPageParam.offset + opts.take;

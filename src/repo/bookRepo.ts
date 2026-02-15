@@ -1,6 +1,6 @@
 import { Book } from "../components/readBooks/Book";
 import { LocalStorage } from "../storage/localStorage";
-import { GetBooksResponse } from "../hooks/bookHooks";
+import { GetBooksResponse } from "./responses/GetBooksResponse";
 import { MockBody, MockFetch, MockResponse } from "@eliasrrosa/mock-fetch";
 import { BookTags } from "../storage/data/tags";
 import { v4 } from "uuid";
