@@ -19,7 +19,6 @@ function CreateBookForm(props: CreateBookFormProps) {
   const [rating, setRating] = useState<number>(0);
   const [tags, setTags] = useState<string>();
   const feedback = useFeedback();
-  const quotesArray = quotes ? quotes.split(",") : undefined;
 
   return (
     <form className="p-10 bg-white flex flex-col gap-6">
@@ -38,6 +37,7 @@ function CreateBookForm(props: CreateBookFormProps) {
           onChange: (ev) => {
             setTitle(ev.currentTarget.value);
           },
+          defaultValue: title,
         }}
       />
       <VinminInput
@@ -48,6 +48,7 @@ function CreateBookForm(props: CreateBookFormProps) {
           onChange: (ev) => {
             setAuthor(ev.currentTarget.value);
           },
+          defaultValue: author,
         }}
       />
       <VinminInput
@@ -58,6 +59,7 @@ function CreateBookForm(props: CreateBookFormProps) {
           onChange: (ev) => {
             setQuotes(ev.currentTarget.value);
           },
+          defaultValue: quotes,
         }}
       />
       <VinminInput
@@ -67,6 +69,7 @@ function CreateBookForm(props: CreateBookFormProps) {
           onChange: (ev) => {
             setTags(ev.currentTarget.value);
           },
+          defaultValue: tags,
         }}
         placeholder="Book tags, separated by commas"
       />
@@ -79,29 +82,36 @@ function CreateBookForm(props: CreateBookFormProps) {
           }}
         />
       </div>
-        <VinminButton
-          vinminStyle="black"
-          className="mt-0"
-          attributes={{
-            onClick: (ev) => {
-              ev.preventDefault();
-              if (!title) {
-                return feedback.setError("Please, insert a title.");
-              }
-              if (!author) {
-                return feedback.setError("Please, insert an author.");
-              }
-              if(!tags){
-                return feedback.setError("Please, insert at least one tag.")
-              }
-              if(!quotesArray || quotesArray.length == 0) {
-                return feedback.setError("Please, insert at least one quote.")
-              }
-            },
-          }}
-        >
-          Submit
-        </VinminButton>
+      <VinminButton
+        vinminStyle="black"
+        className="mt-0"
+        attributes={{
+          onClick: (ev) => {
+            ev.preventDefault();
+            if (!title) {
+              return feedback.setError("Please, insert a title.");
+            }
+            if (!author) {
+              return feedback.setError("Please, insert an author.");
+            }
+            if (!tags) {
+              return feedback.setError("Please, insert at least one tag.");
+            }
+            if (!quotes || quotes.length == 0) {
+              return feedback.setError("Please, insert at least one quote.");
+            }
+            const book = {
+              quotes: quotes.split(","),
+              tags: tags.split(","),
+              author: author,
+              title: title,
+              rating: rating,
+            };
+          },
+        }}
+      >
+        Submit
+      </VinminButton>
     </form>
   );
 }
