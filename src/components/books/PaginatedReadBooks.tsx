@@ -3,7 +3,7 @@ import Book, { Book as BookT } from "../readBooks/Book";
 import { useNavigate, useSearchParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { fetchReadBooks } from "../../repo/bookRepo";
-import { GetBooksResponse } from "../../hooks/bookHooks";
+import { GetBooksResponse } from "../../repo/responses/GetBooksResponse";
 import { useFeedback } from "@eliasrrosa/react-ui";
 import { useEffect } from "react";
 
