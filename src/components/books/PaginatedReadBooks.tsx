@@ -2,8 +2,8 @@ import { VinminPagination } from "@eliasrrosa/vinmin";
 import Book, { Book as BookT } from "../readBooks/Book";
 import { useNavigate, useSearchParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import { fetchReadBooks } from "../../repo/bookRepo";
-import { GetBooksResponse } from "../../repo/responses/GetBooksResponse";
+import { fetchReadBooks } from "../../repo/requests/fetchReadBooks";
+import { GetBooksResponse } from "../../repo/responses/getBooksResponse"; 
 import { useFeedback } from "@eliasrrosa/react-ui";
 import { useEffect } from "react";
 
