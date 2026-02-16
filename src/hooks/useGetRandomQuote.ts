@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchRandomQuote, GetRandomQuoteResponseBody } from "../repo/bookRepo";
+import { fetchRandomQuote } from "../repo/requests/fetchRandomQuote";
+import { GetRandomQuoteResponse } from "../repo/responses/getRandomQuoteResponse";
 
 export function useGetRandomQuote() {
   return useQuery({
@@ -12,7 +13,7 @@ export function useGetRandomQuote() {
       if (res.status != 200) {
         throw new Error("Failed to find quote");
       }
-      return res.json() as GetRandomQuoteResponseBody;
+      return res.json() as GetRandomQuoteResponse;
     },
     refetchInterval: 1000 * 10,
   });

@@ -1,9 +1,10 @@
 import { InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
-import { GetBooksOptions, fetchReadBooks } from "../repo/bookRepo";
-import { GetBooksResponse } from "../repo/responses/GetBooksResponse";
-import { PaginationParams } from "../repo/requestParams/PaginationParams";
+import { fetchReadBooks } from "../repo/requests/fetchReadBooks";
+import { FetchReadBooksParams } from "../repo/requests/queryParams/fetchReadBooksQueryParams";
+import { GetBooksResponse } from "../repo/responses/getBooksResponse";
+import { PaginationParams } from "./params/paginationParams";
 
-export function useGetReadBooksStacked(opts: GetBooksOptions) {
+export function useGetReadBooksStacked(opts: FetchReadBooksParams) {
   return useInfiniteQuery<
     GetBooksResponse,
     Error,

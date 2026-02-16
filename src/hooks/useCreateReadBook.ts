@@ -1,5 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { CreateBookRequestBody, postReadBook } from "../repo/bookRepo";
+import { postReadBook } from "../repo/requests/postReadBook";
+import { PostReadBookRequestBody } from "../repo/requests/bodies/postReadBookRequestBody";
 
 export function useCreateReadBook(opts: {
   onMutate?: () => void;
@@ -7,7 +8,7 @@ export function useCreateReadBook(opts: {
   onError?: (msg: string) => void;
 }) {
   return useMutation({
-    mutationFn: async (opts: CreateBookRequestBody) => {
+    mutationFn: async (opts: PostReadBookRequestBody) => {
       const res = await postReadBook(opts);
       if (res.status != 200) {
         throw new Error("Failed to create read book.");

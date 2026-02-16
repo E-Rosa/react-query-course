@@ -1,8 +1,9 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { fetchReadBooks, GetBooksOptions } from "../repo/bookRepo";
-import { GetBooksResponse } from "../repo/responses/GetBooksResponse";
+import { fetchReadBooks } from "../repo/requests/fetchReadBooks";
+import { FetchReadBooksParams } from "../repo/requests/queryParams/fetchReadBooksQueryParams";
+import { GetBooksResponse } from "../repo/responses/getBooksResponse";
 
-export function useGetReadBooksPaginated(opts: GetBooksOptions) {
+export function useGetReadBooksPaginated(opts: FetchReadBooksParams) {
   return useQuery({
     queryKey: ["getPaginatedBooks", opts.offset, opts.take],
     queryFn: async () => {
