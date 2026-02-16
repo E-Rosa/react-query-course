@@ -1,4 +1,4 @@
-import { useGetRandomQuote } from "../../hooks/bookHooks";
+import { useGetRandomQuote } from "../../hooks/useGetRandomQuote";
 import { VinminSpan } from "@eliasrrosa/vinmin";
 
 interface RandomQuoteToastProps {

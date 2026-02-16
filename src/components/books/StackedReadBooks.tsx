@@ -1,6 +1,6 @@
 import { VinminButton, VinminSpan } from "@eliasrrosa/vinmin";
 import Book from "../readBooks/Book";
-import { useGetReadBooksStacked } from "../../hooks/bookHooks";
+import { useGetReadBooksStacked } from "../../hooks/useGetReadBooksStacked";
 import { PlaceholderBook } from "../readBooks/PlaceholderBook";
 
 interface StackedBooksProps {}

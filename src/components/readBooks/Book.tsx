@@ -6,7 +6,7 @@ import {
 } from "@eliasrrosa/vinmin";
 import { useIsOnScreen } from "../../hooks/isOnScreenHook";
 import { useEffect, useState } from "react";
-import { useGetBookTags } from "../../hooks/bookHooks";
+import { useGetBookTags } from "../../hooks/useGetBookTags";
 import { Tag } from "../books/Tag";
 
 export type Book = {
