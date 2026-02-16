@@ -28,10 +28,10 @@ function CreateBookForm(props: CreateBookFormProps) {
       props.onCreateSuccess?.();
       feedback.setSuccess("Book was added to the shelf!");
       queryClient.invalidateQueries({
-        queryKey: ["getBooksPaginated"],
+        queryKey: ["getPaginatedBooks"],
       });
       queryClient.invalidateQueries({
-        queryKey: ["getBooksStacked"],
+        queryKey: ["getStackedBooks"],
       });
     },
   });

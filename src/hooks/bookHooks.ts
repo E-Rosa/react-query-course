@@ -20,7 +20,7 @@ import { PaginationParams } from "../repo/requestParams/PaginationParams";
 
 export function useGetReadBooksPaginated(opts: GetBooksOptions) {
   return useQuery({
-    queryKey: ["getBooksPaginated", opts.offset, opts.take],
+    queryKey: ["getPaginatedBooks", opts.offset, opts.take],
     queryFn: async () => {
       const res = await fetchReadBooks(opts);
       if (res.status != 200) throw new Error("Failed to get books.");
@@ -74,7 +74,7 @@ export function useGetReadBooksStacked(opts: GetBooksOptions) {
         },
       ],
     },
-    queryKey: ["getBooksStacked", opts.offset, opts.take],
+    queryKey: ["getStackedBooks", opts.offset, opts.take],
     queryFn: async (opts) => {
       const res = await fetchReadBooks(opts.pageParam);
       if (res.status == 404) throw new Error("Books not found.");
