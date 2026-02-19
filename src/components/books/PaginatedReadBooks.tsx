@@ -1,8 +1,8 @@
 import { VinminButton, VinminPagination, VinminSpan } from "@eliasrrosa/vinmin";
-import Book from "../readBooks/Book";
+import Book from "./Book";
 import { useGetReadBooksPaginated } from "../../hooks/useGetReadBooksPaginated";
 import { useNavigate, useSearchParams } from "react-router";
-import { PlaceholderBook } from "../readBooks/PlaceholderBook";
+import { PlaceholderBook } from "./PlaceholderBook";
 
 function PaginatedReadBooks() {
   const navigate = useNavigate();

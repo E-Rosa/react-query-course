@@ -1,7 +1,7 @@
 import { VinminDivider } from "@eliasrrosa/vinmin";
 import { useFeedback } from "@eliasrrosa/react-ui";
 import Hero from "../hero/Hero";
-import ReadBooksSection from "../readBooks/ReadBooksSection";
+import ReadBooksSection from "../books/ReadBooksSection";
 import { useIsFetching, useIsMutating } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { LocalStorage } from "../../storage/localStorage";

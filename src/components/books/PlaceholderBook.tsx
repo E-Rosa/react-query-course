@@ -1,4 +1,4 @@
-import Book from "./Book";
+import Book from "../books/Book";
 
 export function PlaceholderBook() {
   return (
@@ -10,7 +10,6 @@ export function PlaceholderBook() {
         title: "Loading...",
         quotes: ["Loading..."],
       }}
-      isPlaceholder={true}
-    />
+      isPlaceholder={true} />
   );
 }
