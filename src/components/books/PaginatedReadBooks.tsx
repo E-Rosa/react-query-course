@@ -1,5 +1,5 @@
 import { VinminPagination } from "@eliasrrosa/vinmin";
-import Book, { Book as BookT } from "../readBooks/Book";
+import Book from "./Book";
 import { useNavigate, useSearchParams } from "react-router";
 
 function PaginatedReadBooks() {

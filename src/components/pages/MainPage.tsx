@@ -1,6 +1,6 @@
 import { VinminDivider } from "@eliasrrosa/vinmin";
 import Hero from "../hero/Hero";
-import ReadBooksSection from "../readBooks/ReadBooksSection";
+import ReadBooksSection from "../books/ReadBooksSection";
 import { LocalStorage } from "../../storage/localStorage";
 
 LocalStorage.createReadBooksIfNotExists();
