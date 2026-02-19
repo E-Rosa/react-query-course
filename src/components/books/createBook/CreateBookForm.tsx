@@ -5,7 +5,7 @@ import {
   VinminSpan,
   VinminStarRating,
 } from "@eliasrrosa/vinmin";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useFeedback } from "@eliasrrosa/react-ui";
 import { useMutation } from "@tanstack/react-query";
 import { PostReadBookRequestBody } from "../../../repo/requests/bodies/postReadBookRequestBody";
@@ -25,12 +25,16 @@ function CreateBookForm(props: CreateBookFormProps) {
   const createReadBook = useMutation({
     mutationFn: async (opts: PostReadBookRequestBody) => {
       const res = await postReadBook(opts);
-      if(res.status != 200){
-        throw new Error("Failed to create read book.")
+      if (res.status != 200) {
+        throw new Error("Failed to create read book.");
       }
     },
     mutationKey: ["createReadBook"],
-  })
+  });
+
+  useEffect(() => {
+    feedback.setLoading(createReadBook.isPending);
+  }, [createReadBook.isPending]);
 
   return (
     <form className="p-10 bg-white flex flex-col gap-6">
@@ -121,8 +125,8 @@ function CreateBookForm(props: CreateBookFormProps) {
             };
             createReadBook.mutate({
               book: book,
-              tags: book.tags
-            })
+              tags: book.tags,
+            });
           },
         }}
       >
