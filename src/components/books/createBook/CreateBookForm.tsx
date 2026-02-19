@@ -25,12 +25,23 @@ function CreateBookForm(props: CreateBookFormProps) {
   const createReadBook = useMutation({
     mutationFn: async (opts: PostReadBookRequestBody) => {
       const res = await postReadBook(opts);
-      if(res.status != 200){
-        throw new Error("Failed to create read book.")
+      if (res.status != 200) {
+        throw new Error("Failed to create read book.");
       }
     },
+    onSuccess: () => {
+      feedback.setSuccess("Book was added to the shelf!");
+      feedback.setLoading(false);
+    },
+    onMutate: () => {
+      feedback.setLoading(true);
+    },
+    onError: () => {
+      feedback.setLoading(false);
+      feedback.setError("Server failed.");
+    },
     mutationKey: ["createReadBook"],
-  })
+  });
 
   return (
     <form className="p-10 bg-white flex flex-col gap-6">
@@ -121,8 +132,8 @@ function CreateBookForm(props: CreateBookFormProps) {
             };
             createReadBook.mutate({
               book: book,
-              tags: book.tags
-            })
+              tags: book.tags,
+            });
           },
         }}
       >
