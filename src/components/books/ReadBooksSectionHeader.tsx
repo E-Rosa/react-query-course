@@ -8,7 +8,8 @@ import {
 import AddButton from "../buttons/AddButton";
 
 export type ReadBooksSectionHeaderTab = "stack" | "pagination";
-interface ReadBooksSectionHeaderProps {
+
+export interface ReadBooksSectionHeaderProps {
   className?: string;
   onTabChange?: (tabName: ReadBooksSectionHeaderTab) => void;
   activeTab: ReadBooksSectionHeaderTab;
