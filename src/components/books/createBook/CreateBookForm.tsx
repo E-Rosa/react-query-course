@@ -7,6 +7,9 @@ import {
 } from "@eliasrrosa/vinmin";
 import { useState } from "react";
 import { useFeedback } from "@eliasrrosa/react-ui";
+import { useMutation } from "@tanstack/react-query";
+import { PostReadBookRequestBody } from "../../../repo/requests/bodies/postReadBookRequestBody";
+import { postReadBook } from "../../../repo/requests/postReadBook";
 
 interface CreateBookFormProps {
   onCreateSuccess?: () => void;
@@ -19,6 +22,15 @@ function CreateBookForm(props: CreateBookFormProps) {
   const [rating, setRating] = useState<number>(0);
   const [tags, setTags] = useState<string>();
   const feedback = useFeedback();
+  const createReadBook = useMutation({
+    mutationFn: async (opts: PostReadBookRequestBody) => {
+      const res = await postReadBook(opts);
+      if(res.status != 200){
+        throw new Error("Failed to create read book.")
+      }
+    },
+    mutationKey: ["createReadBook"],
+  })
 
   return (
     <form className="p-10 bg-white flex flex-col gap-6">
@@ -107,6 +119,10 @@ function CreateBookForm(props: CreateBookFormProps) {
               title: title,
               rating: rating,
             };
+            createReadBook.mutate({
+              book: book,
+              tags: book.tags
+            })
           },
         }}
       >
