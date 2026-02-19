@@ -1,4 +1,4 @@
-import { Book } from "../../components/readBooks/Book";
+import { Book } from "../../components/books/Book";
 import { LocalStorage } from "../../storage/localStorage";
 import { GetBooksResponse } from "../responses/getBooksResponse";
 import { MockBody, MockFetch, MockResponse } from "@eliasrrosa/mock-fetch";

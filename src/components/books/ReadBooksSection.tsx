@@ -7,19 +7,18 @@ import { Modal } from "@eliasrrosa/react-ui";
 import CreateBookForm from "../books/createBook/CreateBookForm";
 import { useNavigate, useSearchParams } from "react-router";
 
-interface ReadBooksSectionProps {
+export interface ReadBooksSectionProps {
   children?: JSX.Element;
   className?: string;
-}
+};
 
-function ReadBooksSection(props: ReadBooksSectionProps) {
+export function ReadBooksSection(props: ReadBooksSectionProps) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const activeTabParam = searchParams.get("activeTab");
-  const activeTab =
-    activeTabParam == "stack"
-      ? activeTabParam
-      : activeTabParam == "pagination"
+  const activeTab = activeTabParam == "stack"
+    ? activeTabParam
+    : activeTabParam == "pagination"
       ? activeTabParam
       : "pagination";
 
@@ -31,13 +30,12 @@ function ReadBooksSection(props: ReadBooksSectionProps) {
         <ReadBooksSectionHeader
           className={props.className}
           onTabChange={(tabName) => {
-           navigate(`?activeTab=${tabName}`)
-          }}
+            navigate(`?activeTab=${tabName}`);
+          } }
           onAddButtonClick={() => {
             setCreateBookModalIsActive(true);
-          }}
-          activeTab={activeTab}
-        />
+          } }
+          activeTab={activeTab} />
         {activeTab == "pagination" && <PaginatedReadBooks />}
         {activeTab == "stack" && <StackedBooks />}
       </div>
@@ -45,14 +43,13 @@ function ReadBooksSection(props: ReadBooksSectionProps) {
         <Modal
           onOutsideClick={() => {
             setCreateBookModalIsActive(false);
-          }}
+          } }
           containerClassName="flex flex-col items-center justify-center gap-4 h-fit my-5"
         >
           <CreateBookForm
             onCreateSuccess={() => {
               setCreateBookModalIsActive(false);
-            }}
-          />
+            } } />
         </Modal>
       )}
     </>
@@ -60,3 +57,4 @@ function ReadBooksSection(props: ReadBooksSectionProps) {
 }
 
 export default ReadBooksSection;
+

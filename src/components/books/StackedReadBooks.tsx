@@ -1,14 +1,15 @@
 import { VinminButton, VinminSpan } from "@eliasrrosa/vinmin";
-import Book, { Book as BookT } from "../readBooks/Book";
+import Book from "./Book";
 
 interface StackedBooksProps {}
 
 function StackedBooks(_: StackedBooksProps) {
-  const readBooks: BookT[] = [
+  const readBooks = [
     {
       author: "Loading...",
       title: "Loading...",
       rating: 1,
+      id: "00000"
     },
   ];
   return (

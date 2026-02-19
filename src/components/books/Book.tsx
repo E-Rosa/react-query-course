@@ -18,9 +18,9 @@ export interface BookView {
   book: Book;
   isPlaceholder?: boolean;
   onEnterScreen?: () => unknown;
-}
+};
 
-function Book(props: BookView) {
+export default function Book(props: BookView) {
   const { isOnScreen, ref } = useIsOnScreen();
 
   useEffect(() => {
@@ -46,4 +46,3 @@ function Book(props: BookView) {
   );
 }
 
-export default Book;
