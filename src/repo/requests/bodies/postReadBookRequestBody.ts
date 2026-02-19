@@ -1,4 +1,4 @@
-import { Book } from "../../../components/readBooks/Book";
+import { Book } from "../../../components/books/Book";
 
 export type PostReadBookRequestBody = {
   book: Omit<Book, "id">;
