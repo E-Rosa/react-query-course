@@ -32,6 +32,7 @@ function CreateBookForm(props: CreateBookFormProps) {
     onSuccess: () => {
       feedback.setSuccess("Book was added to the shelf!");
       feedback.setLoading(false);
+      props.onCreateSuccess?.();
     },
     onMutate: () => {
       feedback.setLoading(true);
