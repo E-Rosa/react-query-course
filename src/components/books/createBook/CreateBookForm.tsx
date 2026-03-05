@@ -7,7 +7,7 @@ import {
 } from "@eliasrrosa/vinmin";
 import { useState } from "react";
 import { useFeedback } from "@eliasrrosa/react-ui";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { PostReadBookRequestBody } from "../../../repo/requests/bodies/postReadBookRequestBody";
 import { postReadBook } from "../../../repo/requests/postReadBook";
 
@@ -22,6 +22,7 @@ function CreateBookForm(props: CreateBookFormProps) {
   const [rating, setRating] = useState<number>(0);
   const [tags, setTags] = useState<string>();
   const feedback = useFeedback();
+  const queryClient = useQueryClient();
   const createReadBook = useMutation({
     mutationFn: async (opts: PostReadBookRequestBody) => {
       const res = await postReadBook(opts);
@@ -33,6 +34,9 @@ function CreateBookForm(props: CreateBookFormProps) {
       props.onCreateSuccess?.();
       feedback.setSuccess("Book was added to the shelf!");
       feedback.setLoading(false);
+      queryClient.invalidateQueries({
+        queryKey: ["getPaginatedBooks"],
+      });
     },
     onMutate: () => {
       feedback.setLoading(true);
