@@ -1,6 +1,7 @@
 import { FeedbackProvider } from "@eliasrrosa/react-ui";
 import MainPage from "./components/pages/MainPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
@@ -12,6 +13,7 @@ function App() {
           <MainPage />
         </FeedbackProvider>
       </div>
+      <ReactQueryDevtools />
     </QueryClientProvider>
   );
 }
