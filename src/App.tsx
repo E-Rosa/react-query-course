@@ -8,14 +8,14 @@ const queryClient = getQueryClient();
 
 function App() {
   return (
-    <div className="grid grid-cols-1 justify-items-center">
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <div className="w-full grid grid-cols-1 justify-items-center">
         <FeedbackProvider>
           <MainPage />
         </FeedbackProvider>
-        <ReactQueryDevtools />
-      </QueryClientProvider>
-    </div>
+      </div>
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   );
 }
 
