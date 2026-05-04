@@ -7,7 +7,7 @@ import { RepoConfig } from ".././config";
 import { PostReadBookRequestBody } from ".././requests/bodies/postReadBookRequestBody";
 
 export async function postReadBook(
-  opts: PostReadBookRequestBody
+  opts: PostReadBookRequestBody,
 ): Promise<MockResponse> {
   return MockFetch.fetch(
     () => {
@@ -15,19 +15,30 @@ export async function postReadBook(
 
       const newBookId = v4();
 
-      const book: Book = {
+      const newBook: Book = {
         ...opts.book,
         id: newBookId,
       };
 
       if (!storedBooksJSON) {
-        LocalStorage.createReadBooks(JSON.stringify(book));
+        LocalStorage.createReadBooks(JSON.stringify(newBook));
       }
 
       if (storedBooksJSON) {
         const storedBooks = JSON.parse(storedBooksJSON) as Book[];
+        
+        const bookAlreadyAdded = storedBooks.find(
+          (book) => book.title == newBook.title,
+        );
 
-        const updatedBooks = [book].concat(storedBooks);
+        if (bookAlreadyAdded) {
+          return new MockResponse({
+            status: 400,
+            body: new MockBody("Book already added to list."),
+          });
+        }
+
+        const updatedBooks = [newBook].concat(storedBooks);
 
         LocalStorage.createReadBooks(JSON.stringify(updatedBooks));
       }
@@ -55,6 +66,6 @@ export async function postReadBook(
     },
     {
       fetchTimeoutMs: RepoConfig.DEFAULT_FETCH_TIMEOUT_MS,
-    }
+    },
   );
 }
