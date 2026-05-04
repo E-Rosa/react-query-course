@@ -11,7 +11,8 @@ export function useCreateReadBook(opts: {
     mutationFn: async (opts: PostReadBookRequestBody) => {
       const res = await postReadBook(opts);
       if (res.status != 200) {
-        throw new Error("Failed to create read book.");
+        const errMsg = res.json() as string
+        throw new Error(errMsg);
       }
     },
     mutationKey: ["createReadBook"],
