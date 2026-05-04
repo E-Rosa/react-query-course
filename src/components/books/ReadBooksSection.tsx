@@ -44,7 +44,7 @@ export function ReadBooksSection(props: ReadBooksSectionProps) {
           onOutsideClick={() => {
             setCreateBookModalIsActive(false);
           } }
-          containerClassName="flex flex-col items-center justify-center gap-4 h-fit my-5"
+          containerClassName="flex flex-col items-center justify-center gap-4 h-fit my-5 h-full"
         >
           <CreateBookForm
             onCreateSuccess={() => {
