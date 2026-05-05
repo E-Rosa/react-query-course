@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useCreateReadBook } from "../../../hooks/useCreateReadBook";
 import { useFeedback } from "@eliasrrosa/react-ui";
 import { useQueryClient } from "@tanstack/react-query";
+import CreateBookError from "./CreateBookError";
 
 interface CreateBookFormProps {
   onCreateSuccess?: () => void;
@@ -140,20 +141,12 @@ function CreateBookForm(props: CreateBookFormProps) {
         </form>
       )}
       {createBook.isError && (
-        <div className="p-10 bg-white flex flex-col">
-          <VinminH2>Error</VinminH2>
-          <VinminSpan className="mb-4">{`${createBook.error.message}`}</VinminSpan>
-          <VinminButton
-            vinminStyle="black"
-            attributes={{
-              onClick: (ev) => {
-                createBook.reset();
-              },
-            }}
-          >
-            try again
-          </VinminButton>
-        </div>
+        <CreateBookError
+          onTryAgainClick={() => {
+            createBook.reset();
+          }}
+          message={createBook.error.message}
+        />
       )}
     </>
   );
