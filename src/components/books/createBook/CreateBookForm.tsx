@@ -10,7 +10,6 @@ import { useFeedback } from "@eliasrrosa/react-ui";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { PostReadBookRequestBody } from "../../../repo/requests/bodies/postReadBookRequestBody";
 import { postReadBook } from "../../../repo/requests/postReadBook";
-import CreateBookError from "./CreateBookError";
 
 interface CreateBookFormProps {
   onCreateSuccess?: () => void;
@@ -28,8 +27,7 @@ function CreateBookForm(props: CreateBookFormProps) {
     mutationFn: async (opts: PostReadBookRequestBody) => {
       const res = await postReadBook(opts);
       if (res.status != 200) {
-        const errorMessage = await res.json()
-        throw new Error(errorMessage);
+        throw new Error("Failed to create book.");
       }
     },
     onSuccess: () => {
@@ -51,116 +49,102 @@ function CreateBookForm(props: CreateBookFormProps) {
   });
 
   return (
-    <>
-      {!createReadBook.isError && (
-        <form className="p-10 bg-white flex flex-col gap-6">
-          <VinminH2
-            attributes={{
-              className: "text-4xl",
-            }}
-          >
-            Add a book to the shelf.
-          </VinminH2>
-          <VinminInput
-            label="Title"
-            placeholder="eg: The Metamorphosis"
-            inputClassName="w-full"
-            attributes={{
-              onChange: (ev) => {
-                setTitle(ev.currentTarget.value);
-              },
-              defaultValue: title,
-            }}
-          />
-          <VinminInput
-            label="Author"
-            placeholder="eg: Franz Kafka"
-            inputClassName="w-full"
-            attributes={{
-              onChange: (ev) => {
-                setAuthor(ev.currentTarget.value);
-              },
-              defaultValue: author,
-            }}
-          />
-          <VinminInput
-            label="Quotes"
-            placeholder="Your favorite quotes, separated by commas"
-            inputClassName="w-full"
-            attributes={{
-              onChange: (ev) => {
-                setQuotes(ev.currentTarget.value);
-              },
-              defaultValue: quotes,
-            }}
-          />
-          <VinminInput
-            inputClassName="w-full"
-            label="Tags"
-            attributes={{
-              onChange: (ev) => {
-                setTags(ev.currentTarget.value);
-              },
-              defaultValue: tags,
-            }}
-            placeholder="Book tags, separated by commas"
-          />
-          <div className="flex items-center gap-4 p-4 border border-black">
-            <VinminSpan>Rating</VinminSpan>
-            <VinminStarRating
-              filledStarsCount={rating}
-              onStarClick={(rating) => {
-                setRating(rating);
-              }}
-            />
-          </div>
-          <VinminButton
-            vinminStyle="black"
-            className="mt-0"
-            attributes={{
-              onClick: (ev) => {
-                ev.preventDefault();
-                if (!title) {
-                  return feedback.setError("Please, insert a title.");
-                }
-                if (!author) {
-                  return feedback.setError("Please, insert an author.");
-                }
-                if (!tags) {
-                  return feedback.setError("Please, insert at least one tag.");
-                }
-                if (!quotes || quotes.length == 0) {
-                  return feedback.setError(
-                    "Please, insert at least one quote.",
-                  );
-                }
-                const book = {
-                  quotes: quotes.split(","),
-                  tags: tags.split(","),
-                  author: author,
-                  title: title,
-                  rating: rating,
-                };
-                createReadBook.mutate({
-                  book: book,
-                  tags: book.tags,
-                });
-              },
-            }}
-          >
-            Submit
-          </VinminButton>
-        </form>
-      )}
-      {createReadBook.isError && (
-        <CreateBookError
-          message={createReadBook.error.message}
-          onTryAgainClick={() => {
-            createReadBook.reset();
+    <form className="p-10 bg-white flex flex-col gap-6">
+      <VinminH2
+        attributes={{
+          className: "text-4xl",
+        }}
+      >
+        Add a book to the shelf.
+      </VinminH2>
+      <VinminInput
+        label="Title"
+        placeholder="eg: The Metamorphosis"
+        inputClassName="w-full"
+        attributes={{
+          onChange: (ev) => {
+            setTitle(ev.currentTarget.value);
+          },
+          defaultValue: title,
+        }}
+      />
+      <VinminInput
+        label="Author"
+        placeholder="eg: Franz Kafka"
+        inputClassName="w-full"
+        attributes={{
+          onChange: (ev) => {
+            setAuthor(ev.currentTarget.value);
+          },
+          defaultValue: author,
+        }}
+      />
+      <VinminInput
+        label="Quotes"
+        placeholder="Your favorite quotes, separated by commas"
+        inputClassName="w-full"
+        attributes={{
+          onChange: (ev) => {
+            setQuotes(ev.currentTarget.value);
+          },
+          defaultValue: quotes,
+        }}
+      />
+      <VinminInput
+        inputClassName="w-full"
+        label="Tags"
+        attributes={{
+          onChange: (ev) => {
+            setTags(ev.currentTarget.value);
+          },
+          defaultValue: tags,
+        }}
+        placeholder="Book tags, separated by commas"
+      />
+      <div className="flex items-center gap-4 p-4 border border-black">
+        <VinminSpan>Rating</VinminSpan>
+        <VinminStarRating
+          filledStarsCount={rating}
+          onStarClick={(rating) => {
+            setRating(rating);
           }}
         />
-      )}
-    </>
+      </div>
+      <VinminButton
+        vinminStyle="black"
+        className="mt-0"
+        attributes={{
+          onClick: (ev) => {
+            ev.preventDefault();
+            if (!title) {
+              return feedback.setError("Please, insert a title.");
+            }
+            if (!author) {
+              return feedback.setError("Please, insert an author.");
+            }
+            if (!tags) {
+              return feedback.setError("Please, insert at least one tag.");
+            }
+            if (!quotes || quotes.length == 0) {
+              return feedback.setError("Please, insert at least one quote.");
+            }
+            const book = {
+              quotes: quotes.split(","),
+              tags: tags.split(","),
+              author: author,
+              title: title,
+              rating: rating,
+            };
+            createReadBook.mutate({
+              book: book,
+              tags: book.tags,
+            });
+          },
+        }}
+      >
+        Submit
+      </VinminButton>
+    </form>
   );
 }
 
