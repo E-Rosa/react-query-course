@@ -27,7 +27,7 @@ function CreateBookForm(props: CreateBookFormProps) {
     mutationFn: async (opts: PostReadBookRequestBody) => {
       const res = await postReadBook(opts);
       if (res.status != 200) {
-        throw new Error("Failed to create book.");
+        throw new Error("Failed to create read book.");
       }
     },
     onSuccess: () => {
