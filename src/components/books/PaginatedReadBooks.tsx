@@ -2,10 +2,11 @@ import { VinminPagination } from "@eliasrrosa/vinmin";
 import Book from "./Book";
 import { useNavigate, useSearchParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import { fetchReadBooks } from "../../repo/requests/fetchReadBooks"; 
+import { fetchReadBooks } from "../../repo/requests/fetchReadBooks";
 import { GetBooksResponse } from "../../repo/responses/getBooksResponse";
 import { useFeedback } from "@eliasrrosa/react-ui";
 import { useEffect } from "react";
+import PaginatedReadBooksError from "./PaginatedReadBooksError";
 
 function PaginatedReadBooks() {
   const navigate = useNavigate();
@@ -28,14 +29,21 @@ function PaginatedReadBooks() {
   const feedback = useFeedback();
 
   useEffect(() => {
-    feedback.setLoading(readBooks.isFetching)
+    feedback.setLoading(readBooks.isFetching);
   }, [readBooks.isFetching]);
 
   return (
     <>
       <div className="flex flex-col gap-4">
         {readBooks.isFetching && <span>Fetching...</span>}
-        {readBooks.isError && <span className="text-red-700">{readBooks.error.message}</span>}
+        {readBooks.isError && (
+          <PaginatedReadBooksError
+            message={readBooks.error.message}
+            onRetryClick={() => {
+              readBooks.refetch();
+            }}
+          />
+        )}
         {readBooks.data?.books?.map((book, key) => {
           return <Book book={book} key={key} />;
         })}
