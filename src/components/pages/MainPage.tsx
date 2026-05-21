@@ -4,6 +4,7 @@ import ReadBooksSection from "../books/ReadBooksSection";
 import { LocalStorage } from "../../storage/localStorage";
 
 LocalStorage.createReadBooksIfNotExists();
+LocalStorage.createTagsIfNotExists();
 
 function MainPage() {
   return (
