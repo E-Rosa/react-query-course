@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchBookTags } from "../../repo/requests/fetchBookTags";
 import { GetBookTagsResponse } from "../../repo/responses/getBookTagsResponse";
 import { Tag } from "./Tag";
+import TagsList from "./TagsList";
 
 export type Book = {
   id: string;
@@ -58,16 +59,12 @@ export default function Book(props: BookView) {
         <VinminP vinminStyle="tertiary">{props.book.quotes[0]}</VinminP>
       )}
 
-      {tags.data && (
-        <div className="flex flex-row gap-1 mt-4 text-sm">
-          {tags.data?.tags.map((tag, key) => (
-            <Tag tag={tag}></Tag>
-          ))}
-        </div>
-      )}
+      {tags.data && <TagsList tags={tags.data.tags} />}
 
       {tags.isLoading && (
-        <VinminSpan vinminStyle="tertiary" className="text-sm mt-4">Loading...</VinminSpan>
+        <VinminSpan vinminStyle="tertiary" className="text-sm mt-4">
+          Loading...
+        </VinminSpan>
       )}
 
       {tags.isError && (
