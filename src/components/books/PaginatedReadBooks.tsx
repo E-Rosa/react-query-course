@@ -1,12 +1,10 @@
 import { VinminPagination } from "@eliasrrosa/vinmin";
 import Book from "./Book";
 import { useNavigate, useSearchParams } from "react-router";
-import { useQuery } from "@tanstack/react-query";
-import { fetchReadBooks } from "../../repo/requests/fetchReadBooks";
-import { GetBooksResponse } from "../../repo/responses/getBooksResponse";
 import { useFeedback } from "@eliasrrosa/react-ui";
 import { useEffect } from "react";
 import PaginatedReadBooksError from "./PaginatedReadBooksError";
+import { useGetBooksPaginated } from "../../hooks/useGetBooksPaginated";
 
 function PaginatedReadBooks() {
   const navigate = useNavigate();
@@ -14,16 +12,9 @@ function PaginatedReadBooks() {
   const searchParamsOffset = searchParams.get("offset");
   const offset = searchParamsOffset ? parseInt(searchParamsOffset) : 0;
 
-  const readBooks = useQuery({
-    queryFn: async () => {
-      const res = await fetchReadBooks({
-        take: 5,
-        offset: 0,
-      });
-
-      return (await res.json()) as GetBooksResponse;
-    },
-    queryKey: ["getPaginatedBooks"],
+  const readBooks = useGetBooksPaginated({
+    take: 5,
+    offset: 0,
   });
 
   const feedback = useFeedback();

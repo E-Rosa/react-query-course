@@ -7,10 +7,9 @@ import {
 } from "@eliasrrosa/vinmin";
 import { useState } from "react";
 import { useFeedback } from "@eliasrrosa/react-ui";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { PostReadBookRequestBody } from "../../../repo/requests/bodies/postReadBookRequestBody";
-import { postReadBook } from "../../../repo/requests/postReadBook";
+import { useQueryClient } from "@tanstack/react-query";
 import CreateBookError from "./CreateBookError";
+import { useCreateReadBook } from "../../../hooks/useCreateReadBook";
 
 interface CreateBookFormProps {
   onCreateSuccess?: () => void;
@@ -24,14 +23,7 @@ function CreateBookForm(props: CreateBookFormProps) {
   const [tags, setTags] = useState<string>();
   const feedback = useFeedback();
   const queryClient = useQueryClient();
-  const createReadBook = useMutation({
-    mutationFn: async (opts: PostReadBookRequestBody) => {
-      const res = await postReadBook(opts);
-      if (res.status != 200) {
-        const errorMessage = await res.json()
-        throw new Error(errorMessage);
-      }
-    },
+  const createReadBook = useCreateReadBook({
     onSuccess: () => {
       props.onCreateSuccess?.();
       feedback.setSuccess("Book was added to the shelf!");
@@ -47,7 +39,6 @@ function CreateBookForm(props: CreateBookFormProps) {
       feedback.setLoading(false);
       feedback.setError("Server failed.");
     },
-    mutationKey: ["createReadBook"],
   });
 
   return (

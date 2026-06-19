@@ -1,11 +1,8 @@
 import { VinminP, VinminSpan, VinminStarRating } from "@eliasrrosa/vinmin";
 import { useIsOnScreen } from "../../hooks/isOnScreenHook";
 import { useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchBookTags } from "../../repo/requests/fetchBookTags";
-import { GetBookTagsResponse } from "../../repo/responses/getBookTagsResponse";
-import { Tag } from "./Tag";
 import TagsList from "./TagsList";
+import { useGetBookTags } from "../../hooks/useGetBookTags";
 
 export type Book = {
   id: string;
@@ -28,20 +25,10 @@ export default function Book(props: BookView) {
     if (isOnScreen) props.onEnterScreen?.();
   }, [isOnScreen]);
 
-  const tags = useQuery({
-    queryKey: [props.book.id, "tags"],
-    queryFn: async () => {
-      const getTags = await fetchBookTags({
-        bookId: props.book.id,
-      });
-
-      if (getTags.status == 404) return;
-      if (getTags.status != 200) throw new Error("Failed to get tags.");
-
-      return (await getTags.json()) as GetBookTagsResponse;
-    },
-    enabled: isOnScreen && !props.isPlaceholder,
-  });
+  const tags = useGetBookTags({
+    bookId: props.book.id,
+    enabled: isOnScreen && !props.isPlaceholder
+  })
 
   const rating = props.book.rating || 0;
   return (
